@@ -1,0 +1,16 @@
+@startuml acme-field-service-p1
+skinparam componentStyle rectangle
+title ACME Field Service Portal - P1
+actor "Dispatcher" as Dispatcher
+actor "Technician" as Technician
+component "Dispatcher Portal\n[React]" as C0
+component "Work Order Service\n[Python]" as C1
+component "Scheduling Service\n[Python]" as C2
+component "Operations Database\n[PostgreSQL]" as C3
+component "Identity Provider\n[OIDC]" as C4
+C0 --> C1
+C1 --> C2
+C2 --> C3
+C3 --> C4
+Dispatcher --> C0
+@enduml

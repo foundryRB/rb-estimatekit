@@ -1,4 +1,4 @@
-import { Appearance } from '../../vodafone/Appearance';
+import { Appearance } from '../../rb/Appearance';
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/utils';
 import { Lockup } from '@/components/Lockup';
@@ -119,7 +119,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 href="/"
                 className="flex items-center gap-2 mr-2 hover:opacity-80 transition-opacity"
             >
-                {/* One mark: the speechmark. The EK badge beside it read as a second logo. */}
+                {/* One mark: the RB tile. The EK badge beside it read as a second logo. */}
                 <Lockup mode={theme} height={28} />
             </a>
             <h1 className="text-sm font-semibold truncate mr-4 max-w-[200px]">{projectName}</h1>

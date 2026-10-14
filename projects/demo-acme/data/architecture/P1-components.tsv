@@ -1,0 +1,6 @@
+Layer	Component	Technology	Description	Phase 1 Scope
+Experience	Dispatcher Portal	React	Work orders and dispatch calendar	In scope
+Core	Work Order Service	Python	Work order lifecycle	In scope
+Core	Scheduling Service	Python	Assignments, availability and travel time	In scope
+Data	Operations Database	PostgreSQL	Work orders, technicians, assignments	In scope
+Platform	Identity Provider	OIDC	Company account sign-in and roles	In scope

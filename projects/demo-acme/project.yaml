@@ -1,0 +1,17 @@
+# EstimateKit project configuration: identifies the project and controls optional features.
+# An invented demo project (ACME Corp is fictional), used by the tests and as a worked example.
+
+name: "Demo ACME Platform"
+short_name: "ACME Field Service"
+client: "ACME Corp"
+author: "EstimateKit Test"
+description: "Field Service Management Portal"
+date: "October 2026"
+
+branding:
+  primary_color: "#00a86b"
+  company: "RB Software Engineering"
+
+features:
+  customer_requirements: true
+  architecture: true

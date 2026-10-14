@@ -71,7 +71,7 @@ EstimateKit gates every route — the SPA, all of `/api/*`, and `/mcp` — with 
 **fails closed**: it refuses to serve protected routes unless credentials are
 configured, so a misconfigured instance is never silently exposed. The health endpoint
 (`/api/health`) stays open so probes work. This is what makes it safe to publish at
-`estimatekit.vodafone-foundry.com` through the shared Cloudflare tunnel.
+`estimatekit.rb-foundry.com` through the shared Cloudflare tunnel.
 
 - Production: set `ESTIMATEKIT_AUTH_USER` and `ESTIMATEKIT_AUTH_PASSWORD` (injected as a
   Kubernetes Secret by the chart; see `k8s/values.yaml` `auth.existingSecret`). With no
@@ -88,7 +88,7 @@ the inbound ports (scaffold, read/write data files, audit, generate, list output
 an agent drives the same estimation loop the SPA and CLI do. Connect with:
 
 ```bash
-claude mcp add --scope user --transport http estimatekit https://estimatekit.vodafone-foundry.com/mcp \
+claude mcp add --scope user --transport http estimatekit https://estimatekit.rb-foundry.com/mcp \
   --header "Authorization: Basic <base64 user:password>"
 ```
 
@@ -115,7 +115,7 @@ with `ESTIMATEKIT_PROJECTS_ROOT`. Back them up by snapshotting that volume. Gene
 - `auditor/` — standalone pytest data-integrity checks, run by the engine
 - `templates/` — scaffolding templates (TSV, YAML, PlantUML); `projects/` — example engagements
 - `devops/` — multi-stage Dockerfile and docker-compose
-- `k8s/` — Helm chart for the vodafone-foundry.com install
+- `k8s/` — Helm chart for the rb-foundry.com install
 - `docs/` — Starlight documentation site (published to the central docs portal)
 - `intent.yaml` — CSD-INTENT-01 claims for the app
 
@@ -124,7 +124,7 @@ with `ESTIMATEKIT_PROJECTS_ROOT`. Back them up by snapshotting that volume. Gene
 Architecture and conventions follow the shared `REF-CleanArchitecture`, `REF-FastAPI`,
 `REF-Frontend`, and `REF-Python` references. Deployment follows the platform's repo
 standard (`REF-Foundry`, ADR-018); the rendered docs live at
-`docs.vodafone-foundry.com/apps/estimatekit`.
+`docs.rb-foundry.com/apps/estimatekit`.
 
 ## Commits
 

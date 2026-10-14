@@ -1,0 +1,5 @@
+Group	Activity ID	Activity	Req IDs	Effort (MD)	Description
+Mobile	BUILD-201	Technician day view, offline	MOB-001	30	Technician day view, offline.
+Mobile	BUILD-202	Completion capture	MOB-002	14	Completion capture.
+Integration	BUILD-203	Customer SMS	NOTIF-001	6	Customer SMS.
+Integration	BUILD-204	CRM ticket intake	INT-001	12	CRM ticket intake.

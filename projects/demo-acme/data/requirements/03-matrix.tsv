@@ -1,0 +1,14 @@
+Category	Req ID	Description	Demo	Phase 1	Phase 2	Phase 3	Notes
+Authentication & Access	AUTH-001	Sign-in with company account and role-based access	✓				
+Authentication & Access	AUTH-002	User and role administration	✓				
+Work Orders	JOB-001	Create work orders with customer, address, priority and due date	✓				
+Work Orders	JOB-002	Work order lifecycle states		✓			
+Scheduling	SCHED-001	Assign work orders to technicians on a calendar		✓			
+Scheduling	SCHED-002	Technician availability and travel time on the calendar		✓			
+Mobile	MOB-001	Technician day view on a phone, offline capable			✓		
+Mobile	MOB-002	Completion capture: notes, photos, customer signature			✓		
+Notifications	NOTIF-001	Customer SMS when the technician is on the way			✓		
+Integrations	INT-001	Work orders created from CRM tickets			✓		
+Integrations	INT-002	Parts deducted from van stock				✓	
+Reporting	REP-001	Manager dashboards: jobs completed, first-time fix rate, overdue work				✓	
+Integrations	INT-003	Completed jobs sent to billing with labour time and parts				✓	

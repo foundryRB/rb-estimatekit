@@ -1,0 +1,5 @@
+Phase	Phase ID	Name	Description	Integration Type	Examples
+Demo	Demo	DEMO	Clickable demo of the portal with mock data: sign-in, user administration and the work order form.	Mock data	AUTH-001, JOB-001
+Phase 1	P1	CORE	Work order lifecycle and dispatch calendar on real data.	Internal	JOB-002, SCHED-001
+Phase 2	P2	MOBILE	Technician mobile app, completion capture, customer SMS and CRM intake.	CRM and SMS gateway	MOB-001, INT-001
+Phase 3	P3	OPERATIONS	Van stock, manager dashboards and billing export.	Stock and billing systems	INT-002, REP-001

@@ -1,0 +1,8 @@
+Stream	Activity Group	Effort (MD)	Description
+2.Dev	Foundation & Setup	2	Environments and project setup
+1.Design	Design & Architecture	14	Feature design and solution architecture
+2.Dev	Build Activities	62	Detailed in the build file
+2.Dev	Infrastructure & Security	8	Hosting, identity and security configuration
+3.Quality	Testing & Quality	16	Continuous QA within sprints
+2.Dev	Delivery & Operations	6	Documentation, handover and go-live
+0.Lead	Project Management	12	Planning, stakeholders and risk

@@ -14,6 +14,6 @@ class BrandConfig:
     """Visual identity — colors, fonts, company branding."""
 
     primary_color: str = DEFAULT_PRIMARY_CSS
-    company: str = "Vodafone Portugal"
+    company: str = "RB"
     font_url: str = ""
     font_family: str = "Aptos"

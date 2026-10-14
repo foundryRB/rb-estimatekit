@@ -1,0 +1,12 @@
+@startuml acme-field-service-demo
+skinparam componentStyle rectangle
+title ACME Field Service Portal - Demo
+actor "Dispatcher" as Dispatcher
+actor "Technician" as Technician
+component "Dispatcher Portal\n[React]" as C0
+component "Sign-in\n[OIDC]" as C1
+component "Mock API\n[Node.js]" as C2
+C0 --> C1
+C1 --> C2
+Dispatcher --> C0
+@enduml

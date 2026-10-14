@@ -1,0 +1,4 @@
+Layer	Component	Technology	Description	Demo Scope
+Experience	Dispatcher Portal	React	Work order form and user administration	In scope
+Experience	Sign-in	OIDC	Company account sign-in	In scope
+Core	Mock API	Node.js	Serves mock work orders and users	In scope

@@ -1,0 +1,14 @@
+Category	Req ID	Description	Original Text	Lines
+Authentication & Access	AUTH-001	Sign-in with company account and role-based access	Users sign in with their company account and see only what their role allows.	1-5
+Authentication & Access	AUTH-002	User and role administration	Administrators add and remove users and assign roles.	6
+Work Orders	JOB-001	Create work orders with customer, address, priority and due date	Dispatchers create work orders with a customer, address, priority and due date.	7
+Work Orders	JOB-002	Work order lifecycle states	Work orders move through states: new, scheduled, in progress, done, cancelled.	8
+Scheduling	SCHED-001	Assign work orders to technicians on a calendar	Dispatchers assign work orders to technicians on a calendar.	9
+Scheduling	SCHED-002	Technician availability and travel time on the calendar	The calendar shows each technician's availability and travel time between jobs.	10
+Mobile	MOB-001	Technician day view on a phone, offline capable	Technicians see their day's jobs on a phone, offline if needed.	11
+Mobile	MOB-002	Completion capture: notes, photos, customer signature	Technicians record notes, photos and the customer's signature on completion.	12
+Notifications	NOTIF-001	Customer SMS when the technician is on the way	Customers receive an SMS when a technician is on the way.	13
+Integrations	INT-001	Work orders created from CRM tickets	Work orders are created automatically from our CRM tickets.	14
+Integrations	INT-002	Parts deducted from van stock	Parts used on a job are deducted from the van stock.	15
+Reporting	REP-001	Manager dashboards: jobs completed, first-time fix rate, overdue work	Managers see dashboards for jobs completed, first-time fix rate and overdue work.	16
+Integrations	INT-003	Completed jobs sent to billing with labour time and parts	Completed jobs are sent to billing with labour time and parts.	17-20

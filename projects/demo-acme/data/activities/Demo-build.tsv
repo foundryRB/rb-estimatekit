@@ -1,0 +1,4 @@
+Group	Activity ID	Activity	Req IDs	Effort (MD)	Description
+Portal	BUILD-001	Sign-in and roles	AUTH-001	6	Sign-in and roles.
+Portal	BUILD-002	User administration	AUTH-002	4	User administration.
+Portal	BUILD-003	Work order form	JOB-001	8	Work order form.

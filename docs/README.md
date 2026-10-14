@@ -1,7 +1,7 @@
 # EstimateKit docs
 
 The Starlight (Astro) documentation site for EstimateKit, published to the central
-docs portal at `docs.vodafone-foundry.com/apps/estimatekit` (ADR-018, ADR-023).
+docs portal at `docs.rb-foundry.com/apps/estimatekit` (ADR-018, ADR-023).
 
 ## Develop
 

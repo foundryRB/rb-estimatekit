@@ -7,13 +7,13 @@
 name: "[EXAMPLE] Project Name"
 short_name: "[EXAMPLE] short-name"
 client: "[Client Name]"
-author: "Vodafone Portugal"
+author: "RB"
 description: "[EXAMPLE] Platform description"
 date: "February 2026"
 
 branding:
-  primary_color: "#E60000"
-  company: "Vodafone Portugal"
+  primary_color: "#00a86b"
+  company: "RB"
   font_family: "Segoe UI"
 
 features:

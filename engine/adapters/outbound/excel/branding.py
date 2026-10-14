@@ -24,7 +24,7 @@ __all__ = ["CF"]
 class CF:
     """Brand constants for Excel formatting."""
 
-    RED = "E60000"
+    BRAND = "00A86B"
     BLACK = "000000"
     DARK = "1A1A1A"
     DARK_GREY = "333333"
@@ -85,12 +85,12 @@ class CF:
 
     FILL_TITLE = PatternFill("solid", fgColor=DARK)
     FILL_HEADER = PatternFill("solid", fgColor=DARK)
-    FILL_RED = PatternFill("solid", fgColor=RED)
+    FILL_BRAND = PatternFill("solid", fgColor=BRAND)
     FILL_ALT_ROW = PatternFill("solid", fgColor=BG_SUBTLE)
     FILL_CARD = PatternFill("solid", fgColor=BG_CARD)
     FILL_LIGHT_GREY = PatternFill("solid", fgColor=LIGHT_GREY)
     FILL_GROUP = PatternFill("solid", fgColor=MID_GREY)
-    FILL_TOTAL = PatternFill("solid", fgColor=RED)
+    FILL_TOTAL = PatternFill("solid", fgColor=BRAND)
     FILL_WHITE = PatternFill("solid", fgColor=WHITE)
     FILL_NONE = PatternFill(fill_type=None)
 

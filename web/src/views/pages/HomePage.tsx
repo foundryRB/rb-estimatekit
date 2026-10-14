@@ -1,4 +1,4 @@
-import { Appearance } from '../../vodafone/Appearance';
+import { Appearance } from '../../rb/Appearance';
 import React from 'react';
 import { useHomeViewModel } from '@/viewmodels/useHomeViewModel';
 import { useTheme } from '@/viewmodels/useThemeViewModel';
@@ -81,7 +81,7 @@ export const HomePage: React.FC = () => {
                     {/* Logo & title */}
                     <div className="mb-12">
                         <div className="mb-4 flex items-end gap-3">
-                            {/* One mark: the speechmark (see Toolbar). */}
+                            {/* One mark: the RB tile (see Toolbar). */}
                             <Lockup mode={theme} height={36} className="mb-1" />
                             <div className="h-px flex-1 bg-border" />
                         </div>

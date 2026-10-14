@@ -29,6 +29,6 @@ The rules for authoring a project's data are in the **authoring guide**, which i
 
 ## Deployment
 
-EstimateKit follows the Foundry app contract (the platform's repo standard): `devops/` for the image and local run, `k8s/` for the Helm chart, and this `docs/` site, published to the central docs portal. On the install that runs it, the app serves at `estimatekit.<zone>` (this install's is `estimatekit.vodafone-foundry.com`).
+EstimateKit follows the Foundry app contract (the platform's repo standard): `devops/` for the image and local run, `k8s/` for the Helm chart, and this `docs/` site, published to the central docs portal. On the install that runs it, the app serves at `estimatekit.<zone>` (this install's is `estimatekit.rb-foundry.com`).
 
 > **Access control:** deployed with the chart's OIDC gate (the default), oauth2-proxy fronts the SPA and `/api` against the app's own Keycloak realm, and fail-closed HTTP Basic narrows to the `/mcp` machine door (`ESTIMATEKIT_AUTH_SCOPE=mcp`); stood up alone, the Basic gate covers every route, answering 503 until credentials exist. Either way the hostname is safe to publish. See [Components → Access control](architecture/components/#access-control).

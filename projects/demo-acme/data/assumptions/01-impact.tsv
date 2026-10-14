@@ -1,0 +1,5 @@
+Impact	Label	Description
+CRITICAL	🔥 CRITICAL	Could derail project or require major rework if assumption is wrong
+HIGH	⚠️ HIGH	Significant scope, cost, or timeline impact if assumption is wrong
+MEDIUM	ℹ️ MEDIUM	Manageable adjustments needed if assumption is wrong
+LOW	✓ LOW	Minor impact if assumption is wrong

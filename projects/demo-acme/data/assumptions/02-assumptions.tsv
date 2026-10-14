@@ -1,0 +1,9 @@
+Group	Assumption ID	Assumption	Short Title	Confidence	Impact	Req IDs
+Identity	ASM-001	The customer provides an OIDC identity provider with role claims	OIDC available	HIGH	HIGH	AUTH-001, AUTH-002
+Scheduling	ASM-002	Travel times come from a commercial routing API the customer licenses	Routing API licensed	MEDIUM	HIGH	SCHED-002
+Mobile	ASM-003	Technicians use company-managed Android or iOS phones	Managed phones	HIGH	MEDIUM	MOB-001, MOB-002
+Integration	ASM-004	The CRM exposes ticket events or a REST API for new tickets	CRM API	MEDIUM	CRITICAL	INT-001
+Integration	ASM-005	An SMS gateway account is provided by the customer	SMS gateway	HIGH	LOW	NOTIF-001
+Integration	ASM-006	Van stock is held in a system with an update API	Stock API	LOW	HIGH	INT-002
+Integration	ASM-007	Billing accepts a daily batch file of completed jobs	Billing batch	MEDIUM	MEDIUM	INT-003
+Reporting	ASM-008	Dashboards read from the operations database; no data warehouse in scope	No warehouse	MEDIUM	MEDIUM	REP-001

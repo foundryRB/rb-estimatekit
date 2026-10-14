@@ -3,11 +3,11 @@
 # images.<component>.tag.
 images:
   app:
-    repository: ghcr.io/vfpt-vodafone-foundry/estimatekit-app
+    repository: ghcr.io/foundryrb/estimatekit-app
     tag: latest
     pullPolicy: Always
   docs:
-    repository: ghcr.io/vfpt-vodafone-foundry/estimatekit-docs
+    repository: ghcr.io/foundryrb/estimatekit-docs
     tag: latest
     pullPolicy: Always
 
@@ -20,7 +20,7 @@ paused: false
 imagePullSecrets:
   - name: ghcr-pull
 
-host: estimatekit.vodafone-foundry.com
+host: estimatekit.rb-foundry.com
 
 # Per-team Gateway created by foundry-platform (platform/teams/estimatekit.yaml).
 gateway:
@@ -62,7 +62,7 @@ auth:
   existingSecret: estimatekit-auth
   oidc:
     enabled: true
-    issuer: https://keycloak.vodafone-foundry.com/realms/estimatekit
+    issuer: https://keycloak.rb-foundry.com/realms/estimatekit
     clientId: estimatekit
     emailDomains: "*"
     # Client secret + cookie secret; minted in-cluster in this namespace by the
@@ -100,7 +100,7 @@ config:
   ESTIMATEKIT_PROJECTS_ROOT: /data/projects
   # The MCP transport's DNS-rebinding guard admits localhost only by default;
   # a deployment must allow the Host header of its public hostname.
-  ESTIMATEKIT_MCP_ALLOWED_HOSTS: estimatekit.vodafone-foundry.com
+  ESTIMATEKIT_MCP_ALLOWED_HOSTS: estimatekit.rb-foundry.com
 
 # Per-app docs site served behind the central portal at docs.<domain>/apps/<app>
 # (ADR-018). Built from docs/ by CI with base baked in; this just runs the image.

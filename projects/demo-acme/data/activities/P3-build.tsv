@@ -1,0 +1,4 @@
+Group	Activity ID	Activity	Req IDs	Effort (MD)	Description
+Integration	BUILD-301	Van stock deduction	INT-002	14	Van stock deduction.
+Portal	BUILD-302	Manager dashboards	REP-001	16	Manager dashboards.
+Integration	BUILD-303	Billing export	INT-003	12	Billing export.

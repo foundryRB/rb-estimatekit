@@ -1,0 +1,20 @@
+Hello team,
+
+Below is a summary of what we need from a field service portal for our technicians and dispatchers.
+
+- Users sign in with their company account and see only what their role allows.
+- Administrators add and remove users and assign roles.
+- Dispatchers create work orders with a customer, address, priority and due date.
+- Work orders move through states: new, scheduled, in progress, done, cancelled.
+- Dispatchers assign work orders to technicians on a calendar.
+- The calendar shows each technician's availability and travel time between jobs.
+- Technicians see their day's jobs on a phone, offline if needed.
+- Technicians record notes, photos and the customer's signature on completion.
+- Customers receive an SMS when a technician is on the way.
+- Work orders are created automatically from our CRM tickets.
+- Parts used on a job are deducted from the van stock.
+- Managers see dashboards for jobs completed, first-time fix rate and overdue work.
+- Completed jobs are sent to billing with labour time and parts.
+
+Thank you,
+Operations

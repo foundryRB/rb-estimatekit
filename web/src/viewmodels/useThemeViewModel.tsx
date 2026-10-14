@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useAppearance } from '../vodafone/useAppearance';
+import { useAppearance } from '../rb/useAppearance';
 
 /** Compatibility provider: appearance is owned by the shared pre-paint runtime. */
 export const ThemeProvider = ({ children }: { children: ReactNode }) => <>{children}</>;

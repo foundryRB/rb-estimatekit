@@ -1,0 +1,5 @@
+Layer	Component	Technology	Description	Phase 2 Delta
+Experience	Technician App	React Native	Day view and completion capture, offline	In scope
+Core	Sync Service	Python	Offline sync for the technician app	In scope
+Integration	CRM Connector	Python	Creates work orders from CRM tickets	In scope
+Integration	SMS Gateway Adapter	Python	Sends on-the-way messages	In scope

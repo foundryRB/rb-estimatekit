@@ -13,12 +13,12 @@ __all__ = ["ProjectConfig"]
 class ProjectConfig:
     """Top-level project identity from project.yaml."""
 
-    name: str                       # "VFPT Local M2M"
-    short_name: str                 # "Local M2M"
-    client: str                     # "Vodafone Portugal"
-    author: str                     # "Vodafone Portugal"
-    description: str                # "IoT Connectivity Management Platform"
-    date: str                       # "February 2026"
+    name: str                       # "Demo ACME Platform"
+    short_name: str                 # "ACME Field Service"
+    client: str                     # "ACME Corp"
+    author: str                     # "EstimateKit Test"
+    description: str                # "Field Service Management Portal"
+    date: str                       # "October 2026"
     branding: BrandConfig = field(default_factory=BrandConfig)
     features: dict[str, bool] = field(default_factory=dict)
 

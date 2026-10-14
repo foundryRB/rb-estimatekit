@@ -1,0 +1,5 @@
+Parameter	Value	Unit	Description
+Design Lead	0	days	Build activities start after this many days of design (0 = design and build overlap fully)
+Testing Lag	0	%	QA starts from M1 alongside build (continuous testing)
+SIT Duration	0	days	No formal SIT: QA tests features during build sprints
+UAT Duration	0	days	No formal UAT: acceptance within the build cycle

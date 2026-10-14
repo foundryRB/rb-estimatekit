@@ -29,7 +29,7 @@ os.environ.setdefault("ESTIMATEKIT_AUTH_DISABLED", "true")
 
 @pytest.fixture
 def brand() -> BrandConfig:
-    return BrandConfig(primary_color="#E60000", company="TestCorp")
+    return BrandConfig(primary_color="#00a86b", company="TestCorp")
 
 
 @pytest.fixture

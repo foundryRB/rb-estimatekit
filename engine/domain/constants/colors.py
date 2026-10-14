@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-DEFAULT_PRIMARY_HEX = "E60000"
+DEFAULT_PRIMARY_HEX = "00A86B"
 """The brand primary a project gets when its project.yaml sets none (BrandConfig)."""
 
 DEFAULT_PRIMARY_CSS = f"#{DEFAULT_PRIMARY_HEX}"

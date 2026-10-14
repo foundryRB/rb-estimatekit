@@ -1,6 +1,6 @@
 apiVersion: v2
 name: estimatekit
-description: EstimateKit project-estimation engine for the vodafone-foundry.com install.
+description: EstimateKit project-estimation engine for the rb-foundry.com install.
 type: application
 version: 0.1.0
 appVersion: "0.1.0"

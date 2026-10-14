@@ -1,0 +1,4 @@
+Layer	Component	Technology	Description	Phase 3 Delta
+Integration	Stock Connector	Python	Deducts parts from van stock	In scope
+Integration	Billing Exporter	Python	Sends completed jobs to billing	In scope
+Experience	Manager Dashboards	React	Completion, first-time fix and overdue views	In scope

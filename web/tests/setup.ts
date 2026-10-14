@@ -11,9 +11,9 @@ HTMLCanvasElement.prototype.getContext = function getContext() {
     };
 } as unknown as HTMLCanvasElement['getContext'];
 
-// The page loads public/vodafone-appearance.js before the app and the shell reads its runtime;
+// The page loads public/rb-appearance.js before the app and the shell reads its runtime;
 // jsdom loads no page script, so the runtime is provided here in its default state.
-window.vodafoneAppearance = {
+window.rbAppearance = {
     get: () => ({ preference: 'system', resolved: 'light', motion: true, reduced: false }),
     set: () => {},
     setMotion: () => {},

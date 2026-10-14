@@ -1,0 +1,6 @@
+Group	Guideline ID	Guideline	Description	Rationale	Phase IDs
+Positioning	GUIDE-001	Channel, not system of record	The portal orchestrates field work; CRM, stock and billing stay the systems of record	Keeps scope on the field workflow	All
+Delivery	GUIDE-002	Mock first	The demo runs on mock data behind the same API contracts the later phases implement	Lets the demo be reused, not thrown away	Demo
+Integration	GUIDE-003	Events over polling	Integrations publish and consume events where the partner system allows it	Fewer moving parts and clearer failure handling	P2, P3
+Mobile	GUIDE-004	Offline by default	The technician app works offline and syncs when a connection returns	Field sites often have no signal	P2
+Security	GUIDE-005	Least privilege	Every role sees only the work orders and data it needs	Limits exposure of customer data	All

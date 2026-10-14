@@ -1,0 +1,4 @@
+Group	Activity ID	Activity	Req IDs	Effort (MD)	Description
+Core	BUILD-101	Work order lifecycle	JOB-002	12	Work order lifecycle.
+Portal	BUILD-102	Dispatch calendar	SCHED-001	18	Dispatch calendar.
+Core	BUILD-103	Availability and travel time	SCHED-002	14	Availability and travel time.

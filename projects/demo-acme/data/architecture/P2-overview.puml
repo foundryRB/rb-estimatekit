@@ -1,0 +1,14 @@
+@startuml acme-field-service-p2
+skinparam componentStyle rectangle
+title ACME Field Service Portal - P2
+actor "Dispatcher" as Dispatcher
+actor "Technician" as Technician
+component "Technician App\n[React Native]" as C0
+component "Sync Service\n[Python]" as C1
+component "CRM Connector\n[Python]" as C2
+component "SMS Gateway Adapter\n[Python]" as C3
+C0 --> C1
+C1 --> C2
+C2 --> C3
+Dispatcher --> C0
+@enduml

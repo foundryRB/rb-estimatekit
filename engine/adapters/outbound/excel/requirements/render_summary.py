@@ -15,7 +15,7 @@ def render_summary(wb: Workbook, data: RequirementsData) -> None:
     """Render Sheet 1: Summary."""
     ws = wb.active
     ws.title = "Summary"
-    ws.sheet_properties.tabColor = CF.RED
+    ws.sheet_properties.tabColor = CF.BRAND
 
     # Column widths
     CF.set_col_widths(ws, {1: 28, 2: 18, 3: 55})
@@ -60,7 +60,7 @@ def render_summary(wb: Workbook, data: RequirementsData) -> None:
     ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=max_col)
     cell = ws.cell(row=row, column=1, value="INVESTMENT SUMMARY")
     cell.font = CF.FONT_HEADER
-    cell.fill = CF.FILL_RED
+    cell.fill = CF.FILL_BRAND
     cell.alignment = CF.ALIGN_LEFT
     ws.row_dimensions[row].height = 24
     row += 1
