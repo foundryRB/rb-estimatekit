@@ -1,0 +1,4 @@
+Category	Req ID	Description	Phase 1	Phase 2	Notes
+[EXAMPLE] Authentication	AUTH-001	[EXAMPLE] User authentication with MFA	✓		
+[EXAMPLE] Dashboard	DASH-001	[EXAMPLE] Real-time usage dashboard	✓	✓	
+[EXAMPLE] Integration	INT-001	[EXAMPLE] Billing system integration	✓	✓	Depends on API availability

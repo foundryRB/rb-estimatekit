@@ -1,0 +1,31 @@
+# Version control
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets and local state — never bake these into the image
+.env
+.env.*
+
+# Node and frontend build artifacts (rebuilt inside the image)
+node_modules/
+web/node_modules/
+web/dist/
+slidev/node_modules/
+slidev/dist/
+dist/
+build/
+
+# Not needed by the app image (the docs site ships its own image)
+docs/
+.github/
+.claude/

@@ -1,0 +1,4 @@
+Confidence	Label	Description
+HIGH	🟢 HIGH	Strong evidence or prior experience supporting the assumption
+MEDIUM	🟡 MEDIUM	Reasonable assumption but needs validation with stakeholders or technical teams
+LOW	🔴 LOW	Significant uncertainty; critical to validate early before committing to scope/timeline

@@ -1,0 +1,187 @@
+# EstimateKit: Getting Started Guide
+#
+# Static guide content served to all inbound adapters (GET /api/guide, the
+# get_guide MCP tool, the workspace's guide panel). It is the authoring
+# reference: each stage maps to one workflow step a user must complete
+# to go from a scaffolded project to delivered artifacts.
+
+title: "Getting Started"
+
+intro: >-
+  Your project is scaffolded with example data marked [EXAMPLE].
+  Replace it with your real data, working through the stages below.
+  The audit refuses to pass while any [EXAMPLE], [PROJECT NAME], or
+  [Client Name] sentinel remains, so nothing scaffolded can ship:
+  its failures list exactly what is still example content.
+  Run the audit after each stage (the Problems panel, the run_audit tool,
+  or POST /api/projects/<slug>/audit) and fix its failures before moving on.
+
+stages:
+  - id: layout
+    name: "Project Layout"
+    description: "Know which files a project holds, which of them repeat per phase, and the rules every data file is written by."
+    files:
+      - "project.yaml"
+    tips:
+      - "A project is addressed by its slug: 1 to 64 letters, digits, dashes, or underscores, starting with a letter or digit. File paths are project-relative: project.yaml at the root, the data under data/ (requirements/, activities/, architecture/, assumptions/, slides/), and the generated artifacts under output/."
+      - "Project-level files, one each: data/requirements/00-customer-requirements.txt, 01-brd.tsv, 02-phases.tsv, 03-matrix.tsv; data/architecture/00-guidelines.tsv; data/assumptions/00-confidence.tsv, 01-impact.tsv, 02-assumptions.tsv."
+      - "Per-phase files, one set for every phase P<n> that 02-phases.tsv defines: data/activities/P<n>-build.tsv, P<n>-project.tsv, P<n>-resource.tsv, P<n>-config.tsv; data/architecture/P<n>-components.tsv, P<n>-overview.puml; data/slides/P<n>-executive-summary.tsv and P<n>-notes.tsv (the notes file is optional)."
+      - "A TSV's header row is its parsing contract: read the scaffolded file before writing it, and keep its header byte-identical, the same column names in the same order, separated by tabs. The engine reads every column by its header name, so a renamed column reads as empty."
+      - "Three headers vary by design: 03-matrix.tsv has one column per phase, named with that phase's Phase value from 02-phases.tsv (Phase 1, Phase 2, ...) and placed before Notes; a P<n>-resource.tsv has one month column per month the phase runs (M1, M2, ...) after Rate Day; and a P<n>-components.tsv names its last column for its phase, as the scaffold does."
+      - "Tabs separate columns, so a cell never holds a literal tab. Every row carries as many cells as its header, and every TSV keeps at least one data row: delete an optional file rather than empty it."
+      - "Req IDs are the joins between files: 03-matrix.tsv, the build activities, and the assumptions reference requirements by the Req ID 01-brd.tsv gives them, and a phase id ties each P<n>- file to its row in 02-phases.tsv. Keep every ID (Req, Activity, Assumption, Guideline) unique and stable, and reference only Req IDs that exist."
+      - "write_project_file (PUT /api/projects/<slug>/files/<path>) creates or overwrites one whole file, and delete_project_file (DELETE on the same path) removes one. To add or correct rows of a TSV without re-sending it, append_project_rows appends rows and replace_project_row rewrites the one row whose ID column (the header's first '... ID' column) holds a given ID; each row names every header column exactly, and a row that does not fit is refused with nothing written."
+
+  - id: identity
+    name: "Project Identity"
+    description: "Set your project name, client, and description."
+    files:
+      - "project.yaml"
+    tips:
+      - "Replace [Client Name] and [EXAMPLE] placeholders."
+      - "Set feature flags: customer_requirements, architecture. Each turns audit checks on: customer_requirements, the BRD's line checks against 00-customer-requirements.txt; architecture, the per-phase diagram and component checks."
+      - "The 'date' field appears on slide covers: keep it current."
+    auditor_category: "scaffold"
+
+  - id: customer_requirements
+    name: "Customer Requirements"
+    description: "Paste the raw customer input: email, RFP, or meeting notes."
+    files:
+      - "data/requirements/00-customer-requirements.txt"
+    tips:
+      - "Keep the original formatting: the BRD references line numbers."
+      - "Lines must remain stable once the BRD references them."
+      - "The coverage audit tracks every non-blank line: each one must be cited by at least one BRD row's Lines, and blank lines are the only ones left out. Remove a title, a greeting, or a signature before the BRD cites any line; a heading or a lead-in joins the range of the row it introduces, and a context paragraph joins the range of its nearest row."
+    feature_flag: "customer_requirements"
+
+  - id: brd
+    name: "Business Requirements (BRD)"
+    description: "Parse customer requirements into structured rows with categories and Req IDs."
+    files:
+      - "data/requirements/01-brd.tsv"
+    tips:
+      - "Each row needs: Category, Req ID, Description, Original Text, Lines."
+      - "Req ID format: {CATEGORY}-{NNN} (e.g. AUTH-001)."
+      - "Lines column references line numbers in 00-customer-requirements.txt."
+      - "Categories become the grouping axis for the roadmap's Build view."
+      - "Lines is the 1-indexed line number of the requirement's source sentence in 00-customer-requirements.txt, plus any heading, lead-in, or context lines the row carries: one number, a comma-separated list, or a start-end range. It is a pointer, never a span length; the coverage audit resolves each value to that line."
+    auditor_category: "brd"
+
+  - id: phases
+    name: "Phases & Requirements Matrix"
+    description: "Define delivery phases and map each requirement to one or more phases."
+    files:
+      - "data/requirements/02-phases.tsv"
+      - "data/requirements/03-matrix.tsv"
+    tips:
+      - "Phase ID drives all file naming (e.g. P1 → data/activities/P1-build.tsv)."
+      - "Matrix columns must match Phase display names from 02-phases.tsv."
+      - "A non-empty matrix cell (the scaffold uses ✓) puts the requirement in that phase; an empty cell leaves it out. The matrix and 01-brd.tsv hold the same Req IDs: every BRD requirement has its matrix row, and every matrix row its BRD row."
+      - "Add a phase by minting it (POST /api/projects/<slug>/phases/P<n>, the scaffold_phase tool, or 'estimatekit scaffold-phase'): its row and its whole file set (activities, architecture, executive summary, notes) arrive sentinel-marked, so the audit refuses the phase until every file is authored, and its matrix column arrives empty, for you to mark the requirements the phase carries."
+      - "A phase id is P followed by digits (P1, P2, P3). Minting refuses a phase that already has files unless forced; never assemble a phase's files by hand, because a hand-made file carries no sentinel and the audit would pass it unauthored."
+      - "The scaffold's two phases are example shape, not a recommendation: define exactly the phases the engagement needs, and delete the files and the matrix column of phases you drop; the audit refuses any P<n>- file for a phase the table does not define, and any matrix column besides Category, Req ID, Description, and Notes that is not a defined phase."
+    auditor_category: "consistency"
+
+  - id: activities
+    name: "Activities & Resources"
+    description: "Define build activities, project streams, resource allocation, and config, per phase."
+    files:
+      - "data/activities/P1-build.tsv"
+      - "data/activities/P1-project.tsv"
+      - "data/activities/P1-resource.tsv"
+      - "data/activities/P1-config.tsv"
+    tips:
+      - "Every phase carries this file set; minting a phase creates it for you (P2, P3, etc.)."
+      - "Effort (MD) is in person-days, on build and project activities alike."
+      - "Every build activity must reference Req IDs assigned to its phase."
+      - "A Req IDs cell is comma-separated Req IDs, or 'All' alone (any case) for cross-cutting activities; never leave it empty. The audit refuses any other shape: the roadmap misreads a ';', an empty entry, or 'All' beside a Req ID, and 'All' stands alone, so a repeated 'All' is refused too."
+      - "'Build Activities' in project.tsv is the bridge to the build detail file: the build file's total effort must equal that group's effort plus any Design-stream group's."
+      - "The resource plan books each stream's profile lines over the phase's months: a month cell is the person-days that line works that month, at most 20, and Rate Day is its daily rate."
+      - "Streams join project.tsv to resource.tsv: give each project row the exact Stream of the resource lines that staff it, whose capacity schedules it and must cover its effort. Keep the scaffold's numbered stream names (0.Lead, 1.Design, 2.Dev, 3.Test): build activities are scheduled on the capacity of the streams starting 2.Dev, with a Design Lead above 0 the design window is checked against the 1.Design streams, and unless Testing Lag, SIT, and UAT are all 0 the QA window is checked against the test streams (3.Test). Any stream whose name contains test, qa, or quality, in any case, is a test stream, so keep those words out of every other stream's name: a stream named 2.Dev Test Automation counts as both a 2.Dev stream and a test stream."
+      - "Resource capacity must be ≥ the total estimated effort."
+      - "P<n>-config.tsv holds four parameters: change their values, keep their names. None of them moves a build month: build months follow the capacity booked in P<n>-resource.tsv, so book 2.Dev from the month the build should start. Design Lead, SIT Duration, and UAT Duration shape only the Lifecycle view (Roadmap-LifecycleP<n>.tsv) and the deck's lifecycle slides: Design Lead adds design months before each category's first build month (never before M1), and SIT plus UAT add test months after its last, at 20 working days a month with part months rounded up. Testing Lag (a percentage) shapes no generated artifact: only the audit's QA window check and an advisory suggestion read it."
+    auditor_category: "activity"
+
+  - id: assumptions
+    name: "Assumptions"
+    description: "Document project assumptions with confidence and impact ratings."
+    files:
+      - "data/assumptions/02-assumptions.tsv"
+    tips:
+      - "Keep 00-confidence.tsv and 01-impact.tsv as-is: they define the rating scales."
+      - "Confidence and Impact take a value from the first column of those scales (HIGH, MEDIUM, LOW; Impact also CRITICAL)."
+      - "Each assumption should reference related Req IDs from the BRD: comma-separated, or 'All' alone for every requirement."
+    auditor_category: "assumptions"
+
+  - id: architecture
+    name: "Architecture"
+    description: "Define guidelines, component inventory, and PlantUML overview diagrams per phase."
+    files:
+      - "data/architecture/00-guidelines.tsv"
+      - "data/architecture/P1-components.tsv"
+      - "data/architecture/P1-overview.puml"
+    tips:
+      - "Every phase carries components + overview; minting a phase creates them (P2, P3, etc.)."
+      - "Guidelines live in one file; each row's Phase IDs says which phases it governs: 'All' for a principle of the platform, or the phase ids whose decision it records. A phase's deck shows only the rows governing it."
+      - "PlantUML diagrams are rendered automatically in the preview; render_architecture_diagram returns one as SVG."
+      - "The audit requires an overview diagram and component inventory per defined phase, every component to appear in its phase's diagram, every guideline's Phase IDs to name 'All' or a defined phase, and at least one guideline governing each phase."
+      - "The scaffolded P<n>-overview.puml is example content like any other file: rewrite or delete it."
+    feature_flag: "architecture"
+    auditor_category: "architecture"
+
+  - id: slides
+    name: "Executive Summary"
+    description: "Fill in each phase's pitch: the context, rationale, and highlights its deck opens with, and the notes spoken over it."
+    files:
+      - "data/slides/P1-executive-summary.tsv"
+      - "data/slides/P1-notes.tsv"
+    tips:
+      - "One executive summary and one notes file per phase: the deck sells one phase, and its pitch is that phase's."
+      - "Section names are read exactly: Context rows keyed Description (one) and Bullet (one per bullet), Rationale rows keyed by the choice they record (Platform, Frontend, ...), and Highlight rows keyed by their label. A row under any other section name is ignored."
+      - "Each notes row places one text on one slide of the phase's deck. Slide is one of agenda, executive-summary, requirements, architecture, assumptions, effort, roadmap, delivery, or vrom (the cost slide); Position is speaker (presenter notes, on any of them), note (the architecture slide's on-slide note), or footer-note (the effort slide's footer)."
+      - "The audit requires every defined phase to have its executive summary with a Context Description; notes are optional."
+      - "project.yaml's description stays programme-level: it renders on the title slide of every phase's deck, under which the phase's own name and description appear."
+    auditor_category: "slides"
+
+  - id: audit
+    name: "Audit"
+    description: "Run the data-quality audit after every editing pass. A project whose audit fails is not delivery-ready."
+    files: []
+    tips:
+      - "Run it from the Problems panel, the run_audit tool, or POST /api/projects/<slug>/audit. The report lists every check with its category, its outcome (passed, failed, or skipped), and its failure message, plus counts and an overall passed flag. Beside the checks it carries advisory delivery-risk suggestions, which never change passed."
+      - "passed: false stops delivery. The artifacts may still generate, but their numbers cannot be trusted: fix the data and audit again until passed is true, and never hand over artifacts generated over a failing audit."
+      - "Audit after each editing pass rather than once at the end: failures localize better one pass at a time."
+      - "tsv: every data TSV is UTF-8, has no empty or whitespace-padded column names, starts with its expected columns, gives every row its header's column count, and holds at least one data row."
+      - "brd: Req IDs are unique in 01-brd.tsv; with customer_requirements on, every Lines value points at a real line of 00-customer-requirements.txt, and every non-blank line there is cited by a BRD row."
+      - "consistency: the BRD and the matrix hold the same Req IDs (a BRD requirement missing from the matrix is assigned to no phase, and fails), and besides Category, Req ID, Description, and Notes the matrix holds exactly one column per phase 02-phases.tsv defines: a defined phase without its column fails, and so does any other column, such as one left over from a dropped phase."
+      - "activity: per phase, each stream's resource capacity covers its project effort, no resource line books more than 20 days in a month, every requirement the phase carries has a build activity, every build activity has Req IDs (not empty, not N/A, comma-separated with no ';' and no empty entry), every Req ID a build activity names exists in 03-matrix.tsv ('All' as the whole cell marks cross-cutting work, whose effort the roadmap spreads across every category; an 'All' beside other IDs fails), Activity IDs are unique within and across phases, and the build total matches the project file. Timeline: with a Design Lead above 0, the 1.Design streams cover the design effort within the design months; unless Testing Lag, SIT, and UAT are all 0, the 2.Dev streams cover their effort, and with SIT or UAT days set they keep some capacity in the closing test months. Under the same condition the QA window check reads the test streams, every stream whose name contains test, qa, or quality in any case (the scaffold's 3.Test, or 3.Quality): their capacity from the QA start month on must cover their effort. The QA start month is Testing Lag percent of the way through the build months (rounded up), which run from the end of the design lead to the start of the closing SIT and UAT months."
+      - "assumptions: Assumption IDs are unique, Confidence and Impact come from the rating scales, and every referenced Req ID exists in the matrix ('All' alone stands for every requirement), and every Req IDs cell is comma-separated IDs or 'All' alone: a ';', an empty entry, or 'All' beside other entries fails."
+      - "phase: reports each phase's requirements by category and the requirements several phases share, and refuses any P<n>- file under data/ for a phase 02-phases.tsv does not define."
+      - "reverse: a phase's build activities reference only requirements the matrix assigns to that phase, so no work is estimated outside the phase's scope. A Req ID the matrix does not hold is assigned to no phase, so it fails here as well as in activity; a whole-cell 'All' is the phase's cross-cutting work and passes."
+      - "architecture: with architecture on, every phase has a P<n>-overview.puml and a non-empty P<n>-components.tsv whose components the diagram names; the guidelines carry the Phase IDs column, every value is 'All' or a defined phase, and every phase has at least one governing guideline."
+      - "slides: every phase has its P<n>-executive-summary.tsv with a Context Description, and data/slides/ holds only defined phases' executive summaries and notes."
+      - "scaffold: no [EXAMPLE], [PROJECT NAME], or [Client Name] sentinel remains in project.yaml or any file under data/."
+      - "roadmap: the generated roadmap TSVs are well formed (contiguous marker blocks, design before build before test, numeric effort, matching footer counts, milestones at the end of each block, months in order). Its checks are skipped until the roadmap pipeline has run, so audit again after generating."
+
+  - id: generate
+    name: "Generate & Validate"
+    description: "Run the generation pipelines. Every artifact derives from the data files."
+    files: []
+    tips:
+      - "Generate from the toolbar, the generate_artifacts tool, POST /api/projects/<slug>/generate with {pipelines, phase}, or 'estimatekit generate <project> --pipeline ... --phase P<n>'. Naming no pipeline runs all three."
+      - "roadmap writes output/roadmap/: each phase's scheduled roadmap as four TSV views (Roadmap-ResourceP<n>, Roadmap-ActivityGroupP<n>, Roadmap-BuildP<n>, Roadmap-LifecycleP<n>), plus the same four views merged across all phases (Roadmap-...All.tsv)."
+      - "excel writes output/excel/: the customer requirements matrix, the assumptions register, and the architecture guidelines workbooks, plus each phase's estimation, quoter, and financial model (VROM) workbooks."
+      - "slides writes output/slides/: the Slidev deck that sells one phase (its pitch, architecture, governing guidelines, and per-phase sections, with the cross-phase requirements, delivery, effort, all-phases roadmap, and cost slides as context), which the instance builds into the static site it serves."
+      - "The deck sells one phase: name it with phase. A single-phase project needs none; a project with several phases refuses an unnamed deck, and an unknown phase, or one without its executive summary, is refused before anything is written. Regenerating for another phase replaces the deck at the same URL."
+      - "Outputs are derived, never edited: the next run of a pipeline rewrites its outputs from the data, so a hand edit under output/ is lost. Fix the data and regenerate."
+      - "Fix data → re-generate → audit → repeat until the audit passes: generation is deterministic from the data, so regenerating after every fix is cheap."
+
+  - id: deliver
+    name: "Deliver"
+    description: "Hand over the audited artifacts. They stay on the instance, which serves them over HTTP."
+    files: []
+    tips:
+      - "list_output_files (GET /api/projects/<slug>/outputs) lists every generated file with its pipeline, size, and project-relative path (output/<pipeline>/...)."
+      - "Binary transfer is HTTP-only: download one artifact with GET /api/projects/<slug>/outputs/<path>, where <path> is the listed path without its output/ prefix; export every data file as a ZIP with GET /api/projects/<slug>/export, and import one with POST /api/projects/<slug>/import (a ZIP upload that overwrites the files it carries)."
+      - "The built deck is served at <instance base URL>/projects/<slug>/slides/."
+      - "Hand a person those links, and an agent the slug and the output path. Behind a sign-in, an HTTP link opens only for a person at a browser; an agent reads a text output (a roadmap TSV, a deck page) with read_project_file, which takes any project-relative path, output/ included."

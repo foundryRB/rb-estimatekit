@@ -1,0 +1,21 @@
+{
+  "name": "estimatekit-slidev-toolchain",
+  "private": true,
+  "description": "Shared Slidev CLI, used by the engine to build slide decks for any project.",
+  "dependencies": {
+    "@iconify-json/carbon": "^1.2.18",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/ph": "^1.2.2",
+    "@iconify-json/simple-icons": "^1.2.71",
+    "@slidev/cli": "^53.0.0",
+    "@slidev/theme-default": "^0.25.0"
+  },
+  "overrides": {
+    "monaco-editor": {
+      "dompurify": "^3.4.13"
+    },
+    "pptxgenjs": {
+      "image-size": "^2.0.3"
+    }
+  }
+}

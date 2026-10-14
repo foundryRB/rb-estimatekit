@@ -1,0 +1,3 @@
+Group	Assumption ID	Assumption	Short Title	Confidence	Impact	Req IDs
+[EXAMPLE] Platform	TECH-001	[EXAMPLE] The existing infrastructure can support the new application workload	Infra capacity available	HIGH	HIGH	ALL
+[EXAMPLE] Integration	INT-001	[EXAMPLE] Partner APIs are documented and accessible in a sandbox environment	Partner API access	MEDIUM	CRITICAL	INT-001

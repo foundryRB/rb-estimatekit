@@ -1,0 +1,5 @@
+Layer	Component	Technology	Description	Phase 2 Delta
+[EXAMPLE] Frontend	Web Application	React / Angular	Enhanced with advanced analytics, export, and multi-period views	Advanced features
+[EXAMPLE] Backend	API Gateway	Node.js / Python	Extended with write endpoints, workflow orchestration, and webhook support	Write operations
+[EXAMPLE] Data	Database	PostgreSQL / MongoDB	Schema extensions for audit trail, workflow state, and billing data	Schema evolution
+[EXAMPLE] Integration	External API Adapter	REST / SOAP	Two-way integration with write-back capabilities	Full read/write

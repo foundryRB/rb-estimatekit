@@ -1,0 +1,10 @@
+Slide	Position	Text
+architecture	note	[EXAMPLE] No new hosting setup required: the platform leverages the organisation's existing cloud investment.
+effort	footer-note	[EXAMPLE] ~21 working days/month · platform reuse · existing cloud infrastructure
+executive-summary	speaker	[EXAMPLE] Emphasize the strategic alignment and the quick time-to-market that platform reuse enables in Phase 1.
+architecture	speaker	[EXAMPLE] Highlight the security posture: private connectivity, IAM, and network segmentation.
+effort	speaker	[EXAMPLE] Note that the Phase 1 estimate assumes a stable team with no ramp-up period.
+assumptions	speaker	[EXAMPLE] Call out any assumptions the client has not yet validated.
+requirements	speaker	[EXAMPLE] Walk through the priority matrix: the Phase 1 must-haves versus what later phases pick up.
+roadmap	speaker	[EXAMPLE] Stress the dependency chain within Phase 1 and its critical path.
+delivery	speaker	[EXAMPLE] Mention SLA targets and the incident response process.

@@ -1,0 +1,4 @@
+[EXAMPLE] Below are the key features we need in our new platform:
+- [EXAMPLE] User authentication with MFA support
+- [EXAMPLE] Dashboard showing real-time usage data
+- [EXAMPLE] Integration with our existing billing system

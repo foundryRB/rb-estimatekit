@@ -1,0 +1,4 @@
+Group	Guideline ID	Guideline	Description	Rationale	Phase IDs
+[EXAMPLE] Positioning	GUIDE-001	[EXAMPLE] Channel, Not Core	This platform is a visualization and management channel overlaying the client's core IT systems	Avoids scope creep into core IT territory; faster delivery, lower risk	All
+[EXAMPLE] Data	GUIDE-002	[EXAMPLE] Source-of-Truth Respect	Backend systems remain the single source of truth; the platform reads and caches but never overwrites	Data integrity and compliance; avoids dual-master conflicts	All
+[EXAMPLE] Integration	GUIDE-003	[EXAMPLE] Write Through the Adapters	Phase 2 write operations go through the Phase 1 integration adapters, never directly against a backend	One integration boundary to secure, monitor and roll back	P2

@@ -1,0 +1,5 @@
+Stream	Activity Group	Effort (MD)	Description
+1.Design	Design & Architecture	30	Feature design, solution architecture, API contract design, UX specifications
+2.Dev	Build Activities	90	Frontend + Backend + Integration development (sum of P1-build.tsv)
+2.Dev	Infrastructure & DevOps	10	CI/CD pipeline, environment setup, monitoring configuration
+3.Test	Testing & QA	20	Test planning, test case development, SIT, UAT support

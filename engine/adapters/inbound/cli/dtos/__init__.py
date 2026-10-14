@@ -1,0 +1,1 @@
+"""CLI data transfer objects."""

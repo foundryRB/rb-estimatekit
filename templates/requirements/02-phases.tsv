@@ -1,0 +1,3 @@
+Phase	Phase ID	Name	Description	Integration Type	Examples
+Phase 1	P1	[EXAMPLE] Core Features	[EXAMPLE] Core platform with read integrations and essential user-facing features	Read / Manual	Authentication, dashboards, basic views
+Phase 2	P2	[EXAMPLE] Automation	[EXAMPLE] Automated provisioning and write integrations building on Phase 1	Automated	Bulk operations, advanced workflows

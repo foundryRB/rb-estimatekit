@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node / Web
+node_modules/
+web/dist/
+slidev/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Project outputs
+projects/*/output/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# k8s deploy secrets - real token values stay local, never committed.
+# Everything else (values.yaml, the chart) is tracked.
+k8s/secrets/*
+!k8s/secrets/*.example

@@ -1,0 +1,71 @@
+@startuml architecture-overview-p2
+!define RECTANGLE rectangle
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam linetype ortho
+
+title [PROJECT NAME] - System Overview - Phase 2
+
+/'==============================
+  ACTORS
+=============================='/
+actor "End User" as User #LightBlue
+actor "Admin" as Admin #LightGreen
+
+/'==============================
+  FRONTEND LAYER
+=============================='/
+package "Frontend Layer" as FrontendLayer #E3F2FD {
+    [Web Application] as WebApp
+    [Admin Panel] as AdminPanel
+    [Advanced Analytics] as Analytics
+}
+
+/'==============================
+  BACKEND LAYER
+=============================='/
+package "Backend Layer" as BackendLayer #E8F5E9 {
+    [API Gateway] as API
+    [Business Logic] as BizLogic
+    [Auth Service] as Auth
+    [Workflow Engine] as Workflow
+    [External API Adapter] as ExtAdapter
+}
+
+/'==============================
+  DATA LAYER
+=============================='/
+package "Data Layer" as DataLayer #FFF3E0 {
+    database "Database" as DB
+    database "Cache" as Cache
+    database "Audit Trail" as Audit
+}
+
+/'==============================
+  EXTERNAL SYSTEMS
+=============================='/
+package "External Systems" as External #F3E5F5 {
+    [Third-Party API] as ExtAPI
+    [Billing Platform] as Billing
+}
+
+/'==============================
+  RELATIONSHIPS
+=============================='/
+User --> WebApp
+User --> Analytics
+Admin --> AdminPanel
+WebApp --> API
+AdminPanel --> API
+Analytics --> API
+API --> Auth
+API --> BizLogic
+API --> Workflow
+BizLogic --> DB
+BizLogic --> Cache
+BizLogic --> Audit
+Workflow --> ExtAdapter
+ExtAdapter --> ExtAPI
+ExtAdapter --> Billing
+
+@enduml

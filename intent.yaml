@@ -1,0 +1,227 @@
+# Intent claims for EstimateKit (CSD-INTENT-01 schema).
+# The app's own machine-checkable intent, declared at the repo root as required by
+# the platform standard (ADR-018, INT-FOUNDRY-009). Attest each claim with the
+# @intent decorator on a pytest test under engine/tests/ (the named test components
+# below already exist) and audit with `csd-intent .`.
+
+INT-ESTIMATEKIT-001:
+  version: 1.0.0
+  status: active
+  statement: "Code in engine/domain imports only the Python standard library and other engine.domain modules — never application, adapters, or third-party frameworks."
+  rationale: "The hexagonal centre stays pure so the estimation rules are portable and testable without I/O or a web framework; an inward dependency from domain onto an outer ring is the architecture's primary failure mode."
+  test:
+    scope: unit
+    component: DomainPurity
+    type: invariant
+  criticality: high
+
+INT-ESTIMATEKIT-002:
+  version: 1.0.0
+  status: active
+  statement: "Every use case the Container hands out satisfies its declared inbound port; a use case whose signature drifts from its port is rejected at wiring time."
+  rationale: "Container._check raises TypeError when an implementation does not satisfy its inbound port, so adapters can depend on the port contract and signature drift is caught at composition rather than at call time."
+  test:
+    scope: integration
+    component: Container
+    type: invariant
+  criticality: high
+
+INT-ESTIMATEKIT-003:
+  version: 1.0.0
+  status: active
+  statement: "Generators (roadmap, excel, slides) receive domain entities, not file paths; all project-specific content is loaded from data files under the project folder, never hard-coded in Python."
+  rationale: "Separating data loading from rendering keeps generation deterministic and project content out of code, so a new engagement is a folder of data, not a code change (architecture rules R3/R4)."
+  test:
+    scope: integration
+    component: Generation
+    type: invariant
+  criticality: high
+
+INT-ESTIMATEKIT-004:
+  version: 1.0.0
+  status: active
+  statement: "Project access is mediated by the validated ProjectSlug value object, so the engine only reads and writes within the configured projects root and rejects slugs containing path separators or traversal."
+  rationale: "ProjectSlug enforces ^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$ at construction, which is the containment boundary that stops an API caller from escaping ESTIMATEKIT_PROJECTS_ROOT to read or overwrite arbitrary files."
+  test:
+    scope: unit
+    component: ProjectSlug
+    type: invariant
+  criticality: critical
+
+INT-ESTIMATEKIT-005:
+  version: 1.0.0
+  status: active
+  statement: "Running a project's audit executes the standalone auditor/ suite against that project and reports a structured pass/fail per check; a project with any failing check is not delivery-ready."
+  rationale: "Data integrity is gated by the auditor before generation is trusted: hard errors must be fixed, and the audit result is the machine-checkable signal that a project's inputs are coherent."
+  test:
+    scope: integration
+    component: RunAudit
+    type: contract
+  criticality: high
+
+INT-ESTIMATEKIT-006:
+  version: 1.0.0
+  status: active
+  statement: "With auth configured, a request without valid credentials MUST be rejected with 401."
+  rationale: "EstimateKit holds client estimation data and is internet-exposed; unauthenticated access must be refused by the app itself, fail-closed, not only at the edge (mirrors protopane)."
+  test:
+    scope: integration
+    component: Auth
+    type: behavior
+  criticality: critical
+
+INT-ESTIMATEKIT-007:
+  version: 1.0.0
+  status: active
+  statement: "With auth configured, a request carrying valid credentials MUST be allowed."
+  rationale: "The gate must admit the operator, not only block strangers; a wrong password is still refused."
+  test:
+    scope: integration
+    component: Auth
+    type: behavior
+  criticality: high
+
+INT-ESTIMATEKIT-008:
+  version: 1.0.0
+  status: active
+  statement: "The health endpoint (/api/health) MUST be reachable without credentials."
+  rationale: "Liveness and readiness probes call it unauthenticated; gating it would break orchestration."
+  test:
+    scope: integration
+    component: Auth
+    type: behavior
+  criticality: high
+
+INT-ESTIMATEKIT-009:
+  version: 1.0.0
+  status: active
+  statement: "With no credentials configured and auth not explicitly disabled, protected routes MUST fail closed with 503 rather than serve open."
+  rationale: "A misconfigured deploy must refuse to serve rather than silently expose estimation data; ESTIMATEKIT_AUTH_DISABLED=true is the explicit, logged opt-out for local dev."
+  test:
+    scope: integration
+    component: Auth
+    type: invariant
+  criticality: critical
+
+INT-ESTIMATEKIT-010:
+  version: 1.0.0
+  status: active
+  statement: "In mcp auth scope (ESTIMATEKIT_AUTH_SCOPE=mcp) the gate MUST still cover the /mcp machine door fail-closed (valid Basic admitted, 503 when unconfigured, 401 otherwise) and MUST serve the human surfaces (SPA, /api) open for an OIDC reverse proxy in front to gate; it MUST NOT leave /mcp open in this scope."
+  rationale: "An MCP client is a non-interactive agent that cannot complete a browser OIDC login, so the machine door keeps its machine credential (HTTP Basic) while humans authenticate through oauth2-proxy on the other surfaces. The app owns only the /mcp half of the split and the chart couples the two, so 'every surface rejects the unauthenticated' holds across the pair without forcing agents through an interactive flow (ADR-031)."
+  test:
+    scope: integration
+    component: Auth
+    type: invariant
+  criticality: critical
+
+INT-ESTIMATEKIT-011:
+  version: 1.1.0
+  status: active
+  statement: "Beyond the hard checks, an audit surfaces advisory delivery-risk suggestions — zero design lead or testing lag, missing SIT or UAT, design/QA/overhead effort ratios outside experience bands, milestones clustered in one month, member allocations off the 5-day grid, and allocations that oscillate up and down rather than ramp — and these suggestions never change the audit's pass/fail."
+  rationale: "Hard checks fail a plan whose data is incoherent and must be fixed; suggestions raise risks that violate delivery experience and stay advisory, so an estimator sees known red flags without the audit blocking on a judgement call (issue #1)."
+  test:
+    scope: unit
+    component: DeliveryRiskAnalyzer
+    type: behavior
+  criticality: medium
+
+INT-ESTIMATEKIT-012:
+  version: 1.0.0
+  status: active
+  statement: "A resource plan MUST NOT book any single staffing line above DAYS_PER_MONTH (20) man-days in one month; a month cell over the working-days ceiling is a hard audit failure (incoherent data), not an advisory suggestion."
+  rationale: "The scheduling model fixes a month at 20 working days, so one line cannot deliver more than 20 man-days in it. A larger value is physically impossible and silently inflates stream capacity, letting an over-booked plan pass the aggregate capacity checks (the AI-Delivery-Engineer-at-30 case). It belongs with the hard errors like a capacity deficit, not with the delivery-experience smells."
+  test:
+    scope: unit
+    component: overloaded_month_cells
+    type: invariant
+  criticality: high
+
+INT-ESTIMATEKIT-013:
+  version: 1.0.0
+  status: active
+  statement: "Renaming a project changes its display name and, when a new slug is given, moves the project directory to the new slug in one atomic rename; a malformed or occupied target slug is refused with the reason and the project is left untouched, and after a slug rename the project answers only under the new slug."
+  rationale: "Downstream tooling joins on the slug, so renaming the slug away is the operator's lever to detach a stale estimation from a live repo; a half-moved or silently overwritten project directory would corrupt exactly the data the rename is trying to preserve."
+  test:
+    scope: integration
+    component: RenameProject
+    type: behavior
+  criticality: high
+
+INT-ESTIMATEKIT-014:
+  version: 1.0.0
+  status: active
+  statement: "An archived project keeps all of its data on disk and drops out of the active project listing while staying visible in the archived listing; unarchiving returns it to the active listing unchanged."
+  rationale: "Stale work is parked visibly instead of deleted: the default listing answers only for live projects, yet nothing is lost and the operator can always see and revive what was parked."
+  test:
+    scope: integration
+    component: ArchiveLifecycle
+    type: behavior
+  criticality: high
+
+INT-ESTIMATEKIT-015:
+  version: 1.0.0
+  status: active
+  statement: "Architecture diagrams (the .puml sources under data/architecture/) are listed and rendered to SVG by the engine itself - a local PlantUML process inside the pod - and the diagram source is never sent to an external rendering service; an unknown diagram answers 404 and a render failure answers 422 with the reason."
+  rationale: "A client's architecture is confidential: the classic PlantUML preview round-trips the diagram source through a public server, which is exactly the leak in-pod rendering exists to prevent. The console's scope pane may only visualize what the engine can render behind its own boundary, and honest errors (404 unknown, 422 with the renderer's reason) keep a broken diagram diagnosable without a fallback to an external service."
+  test:
+    scope: integration
+    component: ArchitectureDiagrams
+    type: behavior
+  criticality: high
+
+INT-ESTIMATEKIT-016:
+  version: 1.0.0
+  status: active
+  statement: "Stating a fact on the event bus MUST NOT change the act that caused it. With the event transport unreachable, every act that would publish (scaffold, a data file written or deleted, an audit, a generation, a rename, an archive or unarchive, a delete) MUST complete with the same outcome, the same result, and the same state on disk as it does with the transport up, and each dropped publish MUST be logged at warning. A publish MUST NOT be retried inside the caller's latency budget, queued into unbounded memory, or surfaced to the caller as an error, and no readiness probe, health check, or startup path may depend on the transport. Every published event MUST be a CloudEvent whose type is one row of the engine's own events page under the estimation domain, never composed at a call site, carrying the project slug and pointers and never the project's numbers, a file's content, or an audit's findings."
+  rationale: "REF-Events section 6 states the one-way rule as the test every producer attests. The act the platform most needs this engine to keep performing on a broker's account is the audit: a failing audit means the numbers cannot be trusted, and that verdict must reach the caller whether or not anything else hears it. The guarantee is enforced at the one call site (state_fact) rather than assumed of the adapter: a publisher is contractually forbidden from raising, but a caller trusting that contract and being wrong would fail an act it had already committed. No project data enters an event because a bus fans out to every subscriber with a retention the producer does not control, and a client's estimate is exactly the payload that must not leave the engine by a side door. The page equality is REF-Events section 3: each owner states its own types where its tests can hold them, so the consumer's contract and the adapter's vocabulary cannot drift apart."
+  test:
+    scope: integration
+    component: EventPublishing
+    type: invariant
+  criticality: high
+
+INT-ESTIMATEKIT-017:
+  version: 1.0.0
+  status: active
+  statement: "A slide deck is built for exactly one phase: the caller names it on a project with several phases (a single-phase project needs no name), and the deck's executive summary, speaker notes, architecture slide, governing guidelines and per-phase sections are that phase's own, read from the phase's files (slides/P<n>-executive-summary.tsv, slides/P<n>-notes.tsv, architecture/P<n>-components.tsv, the guideline rows whose Phase IDs name it or All). A phase without an executive summary is refused, never rendered with a placeholder, and a multi-phase project with no phase named is refused before any output is written."
+  rationale: "Pitch copy held once per project inherited the previous phase's words every time a phase was minted, and no structural check could tell; three consecutive lines on one project sold a prior phase on the deck, and the architecture slide rendered the lowest phase's components on a project selling its eighth (issue #24). Scoping the copy to the phase makes the deck's provenance mechanical: the per-phase coverage and scaffold-sentinel checks refuse a phase without its own pitch, and the generator cannot pick a phase the caller did not name."
+  test:
+    scope: integration
+    component: SlidevWriter
+    type: behavior
+  criticality: high
+
+INT-MCP-001:
+  version: 1.0.0
+  status: active
+  statement: "Every MCP tool call MUST take the same use-case path as the HTTP API: tools call the container's inbound ports and serialize through the HTTP adapter's mappers, so a write made over MCP is immediately visible over HTTP and subject to the same slug validation and path containment."
+  rationale: "MCP is a third door into the one shared core; if any adapter could reach the data by a different path, containment and trust would depend on which door the writer used."
+  test:
+    scope: integration
+    component: McpAdapter
+    type: invariant
+  criticality: critical
+
+INT-MCP-002:
+  version: 1.0.0
+  status: active
+  statement: "The MCP tool list MUST derive from the container's wired inbound ports: exactly the estimation-workflow operations the composition provides, no more and no fewer."
+  rationale: "The composition root is the single place capabilities are decided; a tool advertising an operation the composition cannot perform is a lie to every connected agent."
+  test:
+    scope: integration
+    component: McpAdapter
+    type: contract
+  criticality: high
+# --- the MCP tool table is held to the adapter, the way the events page is held
+# --- to the publisher: a hand-maintained mirror of a live source must be tested ---
+
+INT-MCP-003:
+  version: 1.0.0
+  status: active
+  statement: "The MCP tool table in docs/src/content/docs/architecture/components.md MUST state exactly the tools the MCP adapter (engine/adapters/inbound/mcp/server.py) registers: every registered tool appears by name in the table's first column, and the table names no tool the adapter does not register. The registered set derives from the adapter source; the stated set derives from the page."
+  rationale: "The tool table is the consumer's contract and the registrations are what the door serves; maintained by hand on both sides they drift silently, and the 2026-08 docs reconciliation found exactly that across the fleet, with three parts documenting none of their tools. The events page already carries this discipline against the publisher's constants; this claim extends it to the tool roster, so a tool shipped without its row, or a row surviving its tool, fails the build instead of waiting for the next audit."
+  test:
+    scope: integration
+    component: Docs
+    type: invariant
+  criticality: medium

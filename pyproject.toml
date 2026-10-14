@@ -1,0 +1,52 @@
+[project]
+name = "estimatekit"
+version = "0.1.0"
+description = "Project estimation engine — from requirements to delivery roadmaps"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+    "openpyxl>=3.1",
+]
+
+[project.scripts]
+estimatekit = "engine.adapters.inbound.cli.__main__:main"
+
+[project.optional-dependencies]
+http = [
+    "fastapi>=0.100",
+    "uvicorn[standard]>=0.20",
+    "pydantic>=2.0",
+    "python-multipart>=0.0.6",
+    "mcp>=1.28,<2",
+    # The event bus client, with the nkeys extra the platform's signed credential
+    # needs. Imported lazily inside the publisher's worker, so an engine with no bus
+    # grant (and the CLI) never touches it.
+    "nats-py[nkeys]>=2.6",
+]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1",
+    "httpx>=0.27",
+    # CSD intent test tooling from the csd-library monorepo, on PyPI (its ADR-0004).
+    # pytest-intent: the @intent decorator the tests import to attest intent.yaml claims.
+    "csd-pytest-intent~=0.3.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["engine*"]
+
+[tool.pytest.ini_options]
+testpaths = ["engine/tests"]
+pythonpath = ["."]
+markers = ["project_integrity: always check every phase during a scoped audit"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

@@ -1,0 +1,29 @@
+name: estimatekit
+
+services:
+  estimatekit:
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
+    image: estimatekit-app:latest
+    container_name: estimatekit
+    environment:
+      # Keep generated projects on the named volume so they survive restarts.
+      ESTIMATEKIT_PROJECTS_ROOT: /data/projects
+      # HTTP Basic credentials. estimatekit fails closed without these. Change the
+      # password before exposing this instance beyond localhost, or set
+      # ESTIMATEKIT_AUTH_DISABLED to "true" to run it unauthenticated locally.
+      ESTIMATEKIT_AUTH_USER: "ops"
+      ESTIMATEKIT_AUTH_PASSWORD: "change-me"
+    ports:
+      - "8000:8000"
+    volumes:
+      - estimatekit-data:/data
+      # Local exploration: to work against the repo's example projects instead of an
+      # empty volume, comment the line above and uncomment this bind mount. Generated
+      # output/ is written back into the repo (already gitignored).
+      # - ../projects:/data/projects
+    restart: unless-stopped
+
+volumes:
+  estimatekit-data:

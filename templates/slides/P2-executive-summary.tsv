@@ -1,0 +1,11 @@
+Section	Key	Value
+Context	Description	[EXAMPLE] Phase 2 automates provisioning and adds write integrations on top of the Phase 1 platform.
+Context	Bullet	[EXAMPLE] Automated provisioning and bulk operations
+Context	Bullet	[EXAMPLE] Write integrations with network, billing, and CRM systems
+Context	Bullet	[EXAMPLE] Advanced workflows building on the delivered portal
+Rationale	Platform	[EXAMPLE] Extends the Phase 1 application
+Rationale	Frontend	[EXAMPLE] Existing micro-frontend with new workflow screens
+Rationale	Backend	[EXAMPLE] Write endpoints and workflow orchestration
+Rationale	Hosting	[EXAMPLE] Existing cloud infrastructure, no new environments
+Highlight	Delivery	[EXAMPLE] Phase 2 of 2, building on the delivered Phase 1
+Highlight	Team	[EXAMPLE] Cross-functional team with the Phase 1 core retained

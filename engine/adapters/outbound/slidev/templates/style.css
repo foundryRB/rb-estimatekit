@@ -1,0 +1,15 @@
+/* EstimateKit Slidev Theme
+ *
+ * Placeholders replaced at generation time:
+ *   {{primary_color}}  → from BrandConfig.primary_color
+ *   {{font_url}}       → from BrandConfig.font_url
+ *   {{font_family}}    → from BrandConfig.font_family
+ *   {{company}}        → from BrandConfig.company
+ */
+
+@import url('{{font_url}}');
+
+:root {
+  --slidev-theme-primary: {{primary_color}};
+  --slidev-theme-font: '{{font_family}}';
+}

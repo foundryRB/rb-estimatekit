@@ -1,0 +1,21 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# EstimateKit — Project Configuration
+# ─────────────────────────────────────────────────────────────────────────────
+# This file identifies the project and controls optional features.
+# Replace all [EXAMPLE] placeholders with your real data.
+
+name: "[EXAMPLE] Project Name"
+short_name: "[EXAMPLE] short-name"
+client: "[Client Name]"
+author: "Vodafone Portugal"
+description: "[EXAMPLE] Platform description"
+date: "February 2026"
+
+branding:
+  primary_color: "#E60000"
+  company: "Vodafone Portugal"
+  font_family: "Segoe UI"
+
+features:
+  customer_requirements: true
+  architecture: true

@@ -1,0 +1,11 @@
+Section	Key	Value
+Context	Description	[EXAMPLE] The client requires a platform for enterprise customers to manage their IoT SIM card fleet; Phase 1 delivers the core platform with read integrations.
+Context	Bullet	[EXAMPLE] Self-service portal for SIM fleet visibility and management
+Context	Bullet	[EXAMPLE] Read integrations with existing network, billing, and CRM systems
+Context	Bullet	[EXAMPLE] Phase 1 of a phased delivery with progressive capability expansion
+Rationale	Platform	[EXAMPLE] Standalone application
+Rationale	Frontend	[EXAMPLE] New micro-frontend (React)
+Rationale	Backend	[EXAMPLE] Custom development
+Rationale	Hosting	[EXAMPLE] Cloud infrastructure
+Highlight	Delivery	[EXAMPLE] Phase 1 of 2: the core platform, ready for the automation phase to build on
+Highlight	Team	[EXAMPLE] Cross-functional team

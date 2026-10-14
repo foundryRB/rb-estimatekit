@@ -1,0 +1,5 @@
+Group	Activity ID	Activity	Req IDs	Effort (MD)	Description
+[EXAMPLE] Design	P2-BUILD-DES-001	[EXAMPLE] Phase 2 Feature Design	DASH-001, INT-001	20	Incremental design for Phase 2 features, API extensions, UX refinements
+[EXAMPLE] Backend	P2-BUILD-001	[EXAMPLE] Write Integration & Automation	INT-001	25	Automated provisioning, write-back to external systems, workflow orchestration
+[EXAMPLE] Frontend	P2-BUILD-002	[EXAMPLE] Advanced Dashboard Features	DASH-001	15	Multi-period analytics, comparative views, advanced filtering and export
+[EXAMPLE] Integration	P2-BUILD-003	[EXAMPLE] Billing System Write-Back	INT-001	20	Two-way integration with billing platform, invoice reconciliation, error recovery

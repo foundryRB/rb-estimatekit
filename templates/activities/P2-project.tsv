@@ -1,0 +1,5 @@
+Stream	Activity Group	Effort (MD)	Description
+1.Design	Design & Architecture	20	Incremental design for Phase 2 features, API extensions, UX refinements
+2.Dev	Build Activities	60	Frontend + Backend + Integration development (sum of P2-build.tsv)
+2.Dev	Infrastructure & DevOps	5	Environment scaling, monitoring enhancements
+3.Test	Testing & QA	15	Regression testing, SIT, UAT for new features

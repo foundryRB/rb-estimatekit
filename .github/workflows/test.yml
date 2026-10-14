@@ -1,0 +1,37 @@
+# estimatekit tests: run the engine pytest suite and the docs Starlight meta-tests on
+# every push to main and on PRs. Separate from build.yml (conformance + release):
+# tests gate the code, the build ships artifacts. Runs on the in-cluster ARC runners
+# (arc-dind scale set), so CI does not depend on GitHub-hosted billing; this requires
+# the install's cluster to be up for the run to be picked up.
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  engine:
+    runs-on: arc-dind
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      # pytest-intent is a git dependency on the (public) csd-library monorepo.
+      - run: pip install -e ".[http,dev]"
+      - run: python -m pytest engine/tests -q
+
+  docs:
+    runs-on: arc-dind
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Starlight meta-tests
+        working-directory: docs
+        run: |
+          npm ci
+          npm test

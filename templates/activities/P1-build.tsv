@@ -1,0 +1,6 @@
+Group	Activity ID	Activity	Req IDs	Effort (MD)	Description
+[EXAMPLE] Design	P1-BUILD-DES-001	[EXAMPLE] Solution Architecture & API Design	AUTH-001, DASH-001, INT-001	30	Solution architecture, API contract design, UX specifications
+[EXAMPLE] Frontend	P1-BUILD-001	[EXAMPLE] Authentication & Login Flow	AUTH-001	15	Login page, MFA flow, session management, password recovery
+[EXAMPLE] Frontend	P1-BUILD-002	[EXAMPLE] Main Dashboard	DASH-001	20	Dashboard layout with charts, KPIs, and real-time data widgets
+[EXAMPLE] Backend	P1-BUILD-003	[EXAMPLE] API Development	AUTH-001, DASH-001	25	REST API endpoints for authentication, data retrieval, and CRUD operations
+[EXAMPLE] Integration	P1-BUILD-004	[EXAMPLE] External System Integration	INT-001	30	Adapter layer for third-party API communication, data mapping, error handling

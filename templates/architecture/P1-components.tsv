@@ -1,0 +1,5 @@
+Layer	Component	Technology	Description	Phase 1 Scope
+[EXAMPLE] Frontend	Web Application	React / Angular	Single-page application serving the main user interface	Full
+[EXAMPLE] Backend	API Gateway	Node.js / Python	REST API layer handling authentication, routing, and business logic	Full
+[EXAMPLE] Data	Database	PostgreSQL / MongoDB	Persistent storage for application data and configuration	Full
+[EXAMPLE] Integration	External API Adapter	REST / SOAP	Integration layer for communicating with third-party systems	Read-only

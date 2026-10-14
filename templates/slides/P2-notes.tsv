@@ -1,0 +1,10 @@
+Slide	Position	Text
+architecture	note	[EXAMPLE] Phase 2 adds write endpoints and workflow orchestration to the deployed Phase 1 platform; no new environments.
+effort	footer-note	[EXAMPLE] ~21 working days/month · Phase 1 core team retained · existing cloud infrastructure
+executive-summary	speaker	[EXAMPLE] Open with what Phase 1 delivered, then the operational gap Phase 2 closes with automation and write integrations.
+architecture	speaker	[EXAMPLE] Highlight that the write integrations reuse the Phase 1 adapters and secret management.
+effort	speaker	[EXAMPLE] Note that the Phase 2 estimate assumes the Phase 1 team continues without ramp-up.
+assumptions	speaker	[EXAMPLE] Call out the assumptions about the external systems' write APIs the client has not yet validated.
+requirements	speaker	[EXAMPLE] Walk through the Phase 2 requirements: automation and write operations over the delivered portal.
+roadmap	speaker	[EXAMPLE] Stress the dependency of Phase 2 on the delivered Phase 1 platform and its critical path.
+delivery	speaker	[EXAMPLE] Mention the SLA targets the automation must keep and the incident response process.

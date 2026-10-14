@@ -1,0 +1,114 @@
+# Two released images (REF-Foundry section 4, the multi-image binding): the app
+# API/SPA and its docs site, each promoted by its own Image Updater alias writing
+# images.<component>.tag.
+images:
+  app:
+    repository: ghcr.io/vfpt-vodafone-foundry/estimatekit-app
+    tag: latest
+    pullPolicy: Always
+  docs:
+    repository: ghcr.io/vfpt-vodafone-foundry/estimatekit-docs
+    tag: latest
+    pullPolicy: Always
+
+# Pause switch: apps ship running. The platform scales the app to zero by
+# overriding this to true on the app's ArgoCD Application (docs stay up).
+paused: false
+
+# Materialized in-namespace by foundry-platform. Set to [] when the GHCR package
+# is public (ADR-015).
+imagePullSecrets:
+  - name: ghcr-pull
+
+host: estimatekit.vodafone-foundry.com
+
+# Per-team Gateway created by foundry-platform (platform/teams/estimatekit.yaml).
+gateway:
+  name: estimatekit
+  namespace: network
+
+persistence:
+  size: 1Gi
+  # storageClassName: local-path  # k3s default; uncomment to pin
+
+# The idle API sits near ~75Mi, but server-side deck generation shells out to the
+# Slidev CLI, whose Vite build peaks well above that. A real multi-phase deck needs
+# ~768Mi to build; 1Gi gives headroom. The request stays low because the peak is
+# transient (a short-lived node subprocess), so only the limit rises.
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    memory: 1Gi
+
+# Auth gate. Two modes; OIDC is the default (ADR-031).
+#
+# oidc.enabled true (default): oauth2-proxy fronts the human surfaces (SPA, /api),
+#   authenticating them against this app's Keycloak realm (a "Sign in with Google"
+#   button on the realm login). The app keeps its own HTTP Basic gate but scopes it
+#   to the /mcp machine door (ESTIMATEKIT_AUTH_SCOPE=mcp), which an agent authenticates
+#   non-interactively; oauth2-proxy skips /mcp so those requests reach that gate.
+#   Fail-closed holds on both halves: no keycloak-estimatekit credential and the proxy
+#   crash-loops (human surfaces closed); no estimatekit-auth credential and /mcp
+#   answers 503.
+# oidc.enabled false: HTTP Basic (scope=all) via envFrom of auth.existingSecret gates
+#   every surface (SPA, /api, /mcp); fails closed (503) until that Secret exists
+#   (ESTIMATEKIT_AUTH_USER + ESTIMATEKIT_AUTH_PASSWORD). Set existingSecret to "" only
+#   for a deliberately edge-gated instance (e.g. behind Cloudflare Access), in which
+#   case set ESTIMATEKIT_AUTH_DISABLED=true under config below so the app stops failing
+#   closed.
+auth:
+  existingSecret: estimatekit-auth
+  oidc:
+    enabled: true
+    issuer: https://keycloak.vodafone-foundry.com/realms/estimatekit
+    clientId: estimatekit
+    emailDomains: "*"
+    # Client secret + cookie secret; minted in-cluster in this namespace by the
+    # platform grant's generate-if-absent Job (gen-keycloak-estimatekit, ADR-034) and
+    # reflected into the identity namespace for realm provisioning. Nothing to apply.
+    existingSecret: keycloak-estimatekit
+    image:
+      repository: quay.io/oauth2-proxy/oauth2-proxy
+      tag: v7.7.1
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        memory: 64Mi
+
+# Non-secret app configuration. Rendered into a ConfigMap; loaded via envFrom.
+# The shared event bus (foundry-platform ADR-041, REF-Events). Off by default: an
+# engine whose install holds no bus grant states its facts to the log instead, and
+# every act completes exactly as it would with a broker up, which is the one-way rule
+# rather than a fallback. The two Secrets are what the grant produced
+# (foundry-onboard-events): `nats-estimatekit` (key `seed`) is the keypair this
+# engine's own generator minted in its namespace and never reflected anywhere;
+# `nats-jwt-estimatekit` (key `user.jwt`) is the user JWT the platform signed for
+# its public half and reflected back. The deployment assembles the two into the one
+# credentials file a NATS client reads. `servers` is the bus's in-cluster address; it
+# has no public one. To adopt the grant, flip `enabled` and change nothing else.
+events:
+  enabled: false
+  servers: nats://nats.messaging.svc.cluster.local:4222
+  seedSecret: nats-estimatekit
+  jwtSecret: nats-jwt-estimatekit
+
+config:
+  ESTIMATEKIT_PROJECTS_ROOT: /data/projects
+  # The MCP transport's DNS-rebinding guard admits localhost only by default;
+  # a deployment must allow the Host header of its public hostname.
+  ESTIMATEKIT_MCP_ALLOWED_HOSTS: estimatekit.vodafone-foundry.com
+
+# Per-app docs site served behind the central portal at docs.<domain>/apps/<app>
+# (ADR-018). Built from docs/ by CI with base baked in; this just runs the image.
+docs:
+  enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      memory: 64Mi

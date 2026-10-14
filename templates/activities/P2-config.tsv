@@ -1,0 +1,5 @@
+Parameter	Value	Unit	Description
+Design Lead	0	days	Design days ahead of the build: the Lifecycle view draws them before each category's first build month, and the audit checks the 1.Design streams cover the design effort within the phase's first months, from M1 (0 = design runs alongside the build)
+Testing Lag	0	%	How far into the build months QA starts, as a percentage; only the audit's QA window check and its zero-testing-lag suggestion read it (0 = QA from the first build month)
+SIT Duration	10	days	System Integration Testing days; with UAT Duration, the test months drawn after each category's build in the Lifecycle view
+UAT Duration	10	days	User Acceptance Testing days, added to SIT Duration for the test months drawn after each category's build
