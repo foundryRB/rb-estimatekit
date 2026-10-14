@@ -87,7 +87,7 @@ def _render_architecture(project: Project, phase: Phase, output_dir: Path) -> st
     note_block = ""
     if note:
         note_block = f"""
-<div class="cf-note mt-1">
+<div class="rb-note mt-1">
 
 {note}
 
@@ -108,7 +108,7 @@ layout: default
 
 # Architecture & Infrastructure <span class="text-sm text-gray-400">{phase.phase_id}</span>
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 {comp_summary}
 
@@ -193,7 +193,7 @@ layout: default
 
 # Architecture Guidelines
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 {guide_summary}
 
@@ -205,7 +205,7 @@ layout: default
 
 </div>
 
-<div class="cf-note mt-1">
+<div class="rb-note mt-1">
 
 {group_names}
 
@@ -231,7 +231,7 @@ layout: default
 
 # Architecture Guidelines <span class="text-sm text-gray-400">(1/2)</span>
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 {guide_summary}
 
@@ -243,7 +243,7 @@ layout: default
 
 </div>
 
-<div class="cf-note mt-1">
+<div class="rb-note mt-1">
 
 {slide1_group_names}
 
@@ -264,7 +264,7 @@ layout: default
 
 # Architecture Guidelines <span class="text-sm text-gray-400">(2/2)</span>
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="text-xs">
 
@@ -274,7 +274,7 @@ layout: default
 
 </div>
 
-<div class="cf-note mt-1">
+<div class="rb-note mt-1">
 
 {slide2_group_names}
 

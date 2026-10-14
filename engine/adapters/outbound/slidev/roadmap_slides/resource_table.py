@@ -36,11 +36,11 @@ def build_resource_table(
                 if v > max_val:
                     max_val = v
 
-    html = '\n<div class="cf-resource-wrap" style="margin-top:0.2rem;">\n'
-    html += '<table class="cf-resource" style="font-size:0.55rem;">\n<thead>\n'
-    html += '<tr class="cf-resource-header">\n'
-    html += '  <th class="cf-resource-stream">Stream</th>\n'
-    html += '  <th class="cf-resource-total">Total</th>\n'
+    html = '\n<div class="rb-resource-wrap" style="margin-top:0.2rem;">\n'
+    html += '<table class="rb-resource" style="font-size:0.55rem;">\n<thead>\n'
+    html += '<tr class="rb-resource-header">\n'
+    html += '  <th class="rb-resource-stream">Stream</th>\n'
+    html += '  <th class="rb-resource-total">Total</th>\n'
     for lbl in labels:
         html += f"  <th>{lbl}</th>\n"
     html += "</tr>\n</thead>\n<tbody>\n"
@@ -50,8 +50,8 @@ def build_resource_table(
         total = row.effort  # effort holds the total for resource rows
 
         html += "<tr>\n"
-        html += f'  <td class="cf-resource-stream">{stream_display}</td>\n'
-        html += f'  <td class="cf-resource-total">{format_md(total)}</td>\n'
+        html += f'  <td class="rb-resource-stream">{stream_display}</td>\n'
+        html += f'  <td class="rb-resource-total">{format_md(total)}</td>\n'
 
         for i in range(n_months):
             val = row.raw_values[i] if row.raw_values and i < len(row.raw_values) else 0.0
@@ -63,9 +63,9 @@ def build_resource_table(
             else:
                 bg_style = ""
             css_cls = (
-                "cf-resource-value-high"
+                "rb-resource-value-high"
                 if val >= max_val * 0.5 and val > 0
-                else "cf-resource-value"
+                else "rb-resource-value"
             )
             val_display = format_md(val) if val else ""
             html += f'  <td class="{css_cls}"{bg_style}>{val_display}</td>\n'

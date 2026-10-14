@@ -97,7 +97,7 @@ layout: default
 
 # {pid} — Delivery Roadmap
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="text-xs mt-1" style="font-size:0.62rem;{zoom_style}">
 
@@ -107,9 +107,9 @@ layout: default
 
 {resource_html}
 
-<div class="cf-legend mt-1" style="font-size:0.6rem;">
-<span class="cf-gantt-legend-active" style="background:{color};"></span> Active &nbsp;&nbsp;
-<span class="cf-gantt-legend-milestone">◆</span> Milestone &nbsp;&nbsp;
+<div class="rb-legend mt-1" style="font-size:0.6rem;">
+<span class="rb-gantt-legend-active" style="background:{color};"></span> Active &nbsp;&nbsp;
+<span class="rb-gantt-legend-milestone">◆</span> Milestone &nbsp;&nbsp;
 <strong>{n_groups} activity groups · {n_milestones} milestones</strong>
 </div>
 {foot}{notes}
@@ -149,7 +149,7 @@ layout: default
 
 # All Phases — Delivery Roadmap
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="text-xs mt-1" style="overflow-x:auto;font-size:0.55rem;{zoom_style}">
 
@@ -157,9 +157,9 @@ layout: default
 
 </div>
 
-<div class="cf-legend mt-1" style="font-size:0.55rem;">
-<span class="cf-gantt-legend-active" style="background:{DEFAULT_PRIMARY_CSS};"></span> Active &nbsp;
-<span class="cf-gantt-legend-milestone">◆</span> Milestone &nbsp;&nbsp;
+<div class="rb-legend mt-1" style="font-size:0.55rem;">
+<span class="rb-gantt-legend-active" style="background:{DEFAULT_PRIMARY_CSS};"></span> Active &nbsp;
+<span class="rb-gantt-legend-milestone">◆</span> Milestone &nbsp;&nbsp;
 <strong>{n_milestones} milestones across {n_phases} phases</strong>
 </div>
 {foot}{notes}
@@ -200,13 +200,13 @@ def render_lifecycle_slide(
 
     # Build adaptive legend
     design_legend = (
-        '\n<span class="cf-gantt-legend-design" style="background:#1976D2;"></span>'
+        '\n<span class="rb-gantt-legend-design" style="background:#1976D2;"></span>'
         " Design &nbsp;&nbsp;"
     ) if has_design else ""
     test_legend = (
-        '\n<span class="cf-gantt-legend-test" style="background:#2E7D32;"></span>'
+        '\n<span class="rb-gantt-legend-test" style="background:#2E7D32;"></span>'
         " Testing &nbsp;&nbsp;"
-        '\n<span class="cf-gantt-legend-test-milestone">▲</span>'
+        '\n<span class="rb-gantt-legend-test-milestone">▲</span>'
         " Test Complete &nbsp;&nbsp;"
     ) if has_testing else ""
 
@@ -220,7 +220,7 @@ layout: default
 
 # {pid} — Feature Lifecycle
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="text-xs mt-2"{zoom_style}>
 
@@ -228,9 +228,9 @@ layout: default
 
 </div>
 
-<div class="cf-legend mt-2 text-xs">{design_legend}
-<span class="cf-gantt-legend-active" style="background:{color};"></span> Build &nbsp;&nbsp;
-<span class="cf-gantt-legend-milestone">◆</span> Complete &nbsp;&nbsp;{test_legend}
+<div class="rb-legend mt-2 text-xs">{design_legend}
+<span class="rb-gantt-legend-active" style="background:{color};"></span> Build &nbsp;&nbsp;
+<span class="rb-gantt-legend-milestone">◆</span> Complete &nbsp;&nbsp;{test_legend}
 <strong>{n_milestones} milestones</strong>
 </div>
 {foot}{notes}
@@ -270,7 +270,7 @@ layout: default
 
 # All Phases — Feature Lifecycle
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="text-xs mt-1" style="overflow-x:auto;font-size:0.62rem;{zoom_style}">
 
@@ -278,12 +278,12 @@ layout: default
 
 </div>
 
-<div class="cf-legend mt-1" style="font-size:0.6rem;">
-<span class="cf-gantt-legend-design" style="background:#1976D2;"></span> Design &nbsp;
-<span class="cf-gantt-legend-active" style="background:{DEFAULT_PRIMARY_CSS};"></span> Build &nbsp;
-<span class="cf-gantt-legend-milestone">◆</span> Complete &nbsp;
-<span class="cf-gantt-legend-test" style="background:#2E7D32;"></span> Testing &nbsp;
-<span class="cf-gantt-legend-test-milestone">▲</span> Test Complete &nbsp;&nbsp;
+<div class="rb-legend mt-1" style="font-size:0.6rem;">
+<span class="rb-gantt-legend-design" style="background:#1976D2;"></span> Design &nbsp;
+<span class="rb-gantt-legend-active" style="background:{DEFAULT_PRIMARY_CSS};"></span> Build &nbsp;
+<span class="rb-gantt-legend-milestone">◆</span> Complete &nbsp;
+<span class="rb-gantt-legend-test" style="background:#2E7D32;"></span> Testing &nbsp;
+<span class="rb-gantt-legend-test-milestone">▲</span> Test Complete &nbsp;&nbsp;
 <strong>{n_milestones} milestones across {n_phases} phases</strong>
 </div>
 {foot}{notes}

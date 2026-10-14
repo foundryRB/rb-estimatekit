@@ -51,13 +51,13 @@ def compute_phase_groups(col_phases: list[str]) -> list[tuple[str, int]]:
 def phase_header_row(col_phases: list[str], extra_cols: int = 0, primary: str = DEFAULT_PRIMARY_CSS) -> str:
     """Build the coloured phase-group ``<tr>`` for multi-phase views."""
     groups = compute_phase_groups(col_phases)
-    html = '<tr class="cf-gantt-phase-row">\n'
+    html = '<tr class="rb-gantt-phase-row">\n'
     for _ in range(extra_cols):
-        html += '  <th class="cf-gantt-label"></th>\n'
+        html += '  <th class="rb-gantt-label"></th>\n'
     for phase, span in groups:
         color = phase_color(phase, primary)
         html += (
-            f'  <th colspan="{span}" class="cf-gantt-phase" '
+            f'  <th colspan="{span}" class="rb-gantt-phase" '
             f'style="background:{color};color:#fff;">{phase}</th>\n'
         )
     html += "</tr>\n"

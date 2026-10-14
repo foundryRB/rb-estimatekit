@@ -13,13 +13,13 @@ from engine.domain.model.value_objects.phase_effort import PhaseEffort
 from engine.domain.model.value_objects.phase_roadmap import PhaseRoadmap
 
 # CSS class per phase index (for category cards)
-_CAT_CSS = ["cf-cat--demo", "cf-cat--p1", "cf-cat--p12", "cf-cat--p23"]
+_CAT_CSS = ["rb-cat--demo", "rb-cat--p1", "rb-cat--p12", "rb-cat--p23"]
 # Legend dot CSS classes (matching the above)
 _LEGEND_CSS = [
-    "cf-legend-dot--demo",
-    "cf-legend-dot--p1",
-    "cf-legend-dot--p12",
-    "cf-legend-dot--p23",
+    "rb-legend-dot--demo",
+    "rb-legend-dot--p1",
+    "rb-legend-dot--p12",
+    "rb-legend-dot--p23",
 ]
 
 
@@ -100,9 +100,9 @@ def _render_overview(project: Project, output_dir: Path, *, notes: str = "") -> 
         cat_total = sum(counts.values())
         css = _phase_class(counts, phase_ids)
         cards += (
-            f'\n<div class="{css} cf-cat">\n'
-            f'  <div class="cf-cat-name">{display}</div>\n'
-            f'  <div class="cf-cat-count">{cat_total}</div>\n'
+            f'\n<div class="{css} rb-cat">\n'
+            f'  <div class="rb-cat-name">{display}</div>\n'
+            f'  <div class="rb-cat-count">{cat_total}</div>\n'
             f"</div>"
         )
 
@@ -124,7 +124,7 @@ layout: default
 
 # Requirements Overview
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 **{total} requirements** extracted from customer needs, organized by functional area.
 
@@ -132,7 +132,7 @@ layout: default
 {cards}
 </div>
 
-<div class="mt-4 cf-legend">
+<div class="mt-4 rb-legend">
 {_join_legend(legend_parts)}
 </div>
 {foot}{notes}
@@ -211,7 +211,7 @@ layout: default
 
 # Requirements × Phase Matrix
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 **{total} requirements** across {len(project.phases)} phases.
 

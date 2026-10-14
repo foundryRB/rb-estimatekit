@@ -87,7 +87,7 @@ layout: default
 
 # Executive Summary <span class="text-sm text-gray-400">{phase.phase_id}</span>
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 {context_block}
 <div class="grid grid-cols-2 gap-6">
 {rationale_html}

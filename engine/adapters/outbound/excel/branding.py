@@ -1,6 +1,6 @@
 """Workbook styles, shared by the Excel generators.
 
-CF owns the installed application's spreadsheet palette and typography.
+RB owns the installed application's spreadsheet palette and typography.
 Semantic risk and category colours retain their data meaning.
 """
 
@@ -18,10 +18,10 @@ from openpyxl.styles import (
 
 from engine.domain.constants.colors import PHASE_COLORS_HEX
 
-__all__ = ["CF"]
+__all__ = ["RB"]
 
 
-class CF:
+class RB:
     """Brand constants for Excel formatting."""
 
     BRAND = "00A86B"
@@ -108,64 +108,64 @@ class CF:
     @staticmethod
     def conf_font(level: str) -> Font:
         """Font for confidence-level cells."""
-        fg, _ = CF.CONF_COLORS.get(level, (CF.DARK, CF.WHITE))
-        return Font(name=CF.FONT_FAMILY, size=10, bold=True, color=fg)
+        fg, _ = RB.CONF_COLORS.get(level, (RB.DARK, RB.WHITE))
+        return Font(name=RB.FONT_FAMILY, size=10, bold=True, color=fg)
 
     @staticmethod
     def conf_fill(level: str) -> PatternFill:
         """Fill for confidence-level cells."""
-        _, bg = CF.CONF_COLORS.get(level, (CF.DARK, CF.WHITE))
+        _, bg = RB.CONF_COLORS.get(level, (RB.DARK, RB.WHITE))
         return PatternFill("solid", fgColor=bg)
 
     @staticmethod
     def impact_font(level: str) -> Font:
         """Font for impact-level cells."""
-        fg, _ = CF.IMPACT_COLORS.get(level, (CF.DARK, CF.WHITE))
-        return Font(name=CF.FONT_FAMILY, size=10, bold=True, color=fg)
+        fg, _ = RB.IMPACT_COLORS.get(level, (RB.DARK, RB.WHITE))
+        return Font(name=RB.FONT_FAMILY, size=10, bold=True, color=fg)
 
     @staticmethod
     def impact_fill(level: str) -> PatternFill:
         """Fill for impact-level cells."""
-        _, bg = CF.IMPACT_COLORS.get(level, (CF.DARK, CF.WHITE))
+        _, bg = RB.IMPACT_COLORS.get(level, (RB.DARK, RB.WHITE))
         return PatternFill("solid", fgColor=bg)
 
     @staticmethod
     def heat_fill(conf: str, impact: str) -> PatternFill:
         """Fill for a risk-matrix heat-map cell."""
-        color = CF.HEAT_COLORS.get((conf, impact), CF.WHITE)
+        color = RB.HEAT_COLORS.get((conf, impact), RB.WHITE)
         return PatternFill("solid", fgColor=color)
 
     @staticmethod
     def heat_font(conf: str, impact: str) -> Font:
         """Font for a risk-matrix heat-map cell."""
-        heat = CF.HEAT_COLORS.get((conf, impact), CF.WHITE)
-        fg = "FFFFFF" if heat in ("C62828",) else CF.DARK
-        return Font(name=CF.FONT_FAMILY, size=10, bold=True, color=fg)
+        heat = RB.HEAT_COLORS.get((conf, impact), RB.WHITE)
+        fg = "FFFFFF" if heat in ("C62828",) else RB.DARK
+        return Font(name=RB.FONT_FAMILY, size=10, bold=True, color=fg)
 
     @staticmethod
     def phase_fill(phase_id: str) -> PatternFill:
-        color = CF.PHASE_COLORS.get(phase_id, CF.DARK_GREY)
+        color = RB.PHASE_COLORS.get(phase_id, RB.DARK_GREY)
         return PatternFill("solid", fgColor=color)
 
     @staticmethod
     def cat_fill(idx: int) -> PatternFill:
-        color = CF.CAT_COLORS[idx % len(CF.CAT_COLORS)]
+        color = RB.CAT_COLORS[idx % len(RB.CAT_COLORS)]
         return PatternFill("solid", fgColor=color)
 
     @staticmethod
     def apply_title_row(ws, row: int, max_col: int, title: str, subtitle: str | None = None) -> int:
         ws.merge_cells(start_row=row, start_column=1, end_row=row, end_column=max_col)
         cell = ws.cell(row=row, column=1, value=title)
-        cell.font = CF.FONT_TITLE
-        cell.fill = CF.FILL_TITLE
-        cell.alignment = CF.ALIGN_LEFT
+        cell.font = RB.FONT_TITLE
+        cell.fill = RB.FILL_TITLE
+        cell.alignment = RB.ALIGN_LEFT
         ws.row_dimensions[row].height = 32
         if subtitle:
             ws.merge_cells(start_row=row + 1, start_column=1, end_row=row + 1, end_column=max_col)
             cell = ws.cell(row=row + 1, column=1, value=subtitle)
-            cell.font = CF.FONT_SUBTITLE
-            cell.fill = CF.FILL_TITLE
-            cell.alignment = CF.ALIGN_LEFT
+            cell.font = RB.FONT_SUBTITLE
+            cell.fill = RB.FILL_TITLE
+            cell.alignment = RB.ALIGN_LEFT
             ws.row_dimensions[row + 1].height = 20
             return row + 2
         return row + 1
@@ -174,10 +174,10 @@ class CF:
     def apply_header_row(ws, row: int, headers: list[str], col_start: int = 1) -> int:
         for i, h in enumerate(headers):
             cell = ws.cell(row=row, column=col_start + i, value=h)
-            cell.font = CF.FONT_HEADER
-            cell.fill = CF.FILL_HEADER
-            cell.alignment = CF.ALIGN_CENTER
-            cell.border = CF.BORDER_GRID
+            cell.font = RB.FONT_HEADER
+            cell.fill = RB.FILL_HEADER
+            cell.alignment = RB.ALIGN_CENTER
+            cell.border = RB.BORDER_GRID
         ws.row_dimensions[row].height = 24
         return row + 1
 

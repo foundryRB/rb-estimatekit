@@ -83,7 +83,7 @@ layout: default
 
 # Assumptions Overview
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 {conf_line}
 
@@ -168,7 +168,7 @@ def _risk_column(action: str, css_suffix: str, items: list[Assumption]) -> str:
 
 <div style="font-size:0.65rem;">
 
-<div class="cf-risk-header cf-risk-header--{css_suffix}">
+<div class="rb-risk-header rb-risk-header--{css_suffix}">
 {action} ({len(items)})
 </div>
 
@@ -243,7 +243,7 @@ layout: default
 
 # Assumption Risk Map
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 **All {total} assumptions**, by confidence (the act) and impact (the stake)
 · {n_critical} of critical impact.
@@ -254,7 +254,7 @@ layout: default
 
 </div>
 
-<div class="cf-note mt-1">
+<div class="rb-note mt-1">
 
 {risk_note}
 

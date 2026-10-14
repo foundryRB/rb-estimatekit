@@ -15,10 +15,10 @@ from engine.domain.model.value_objects.phase_roadmap import PhaseRoadmap
 # Phase CSS classes; the accent colours are the brand palette (P1 carries the
 # project's primary colour). Falls back cyclically for unknown phases.
 _PHASE_CSS: dict[str, str] = {
-    "Demo": "cf-phase--demo",
-    "P1": "cf-phase--p1",
-    "P2": "cf-phase--p2",
-    "P3": "cf-phase--p3",
+    "Demo": "rb-phase--demo",
+    "P1": "rb-phase--p1",
+    "P2": "rb-phase--p2",
+    "P3": "rb-phase--p3",
 }
 _CSS_CYCLE: list[str] = list(_PHASE_CSS.values())
 
@@ -64,7 +64,7 @@ def _render_effort_estimate(
         css_class, color = _phase_css(pid, idx, project.config.branding.primary_color)
         activity_count = sum(g.count for g in eff.build_groups.values())
         cards += (
-            f'  <div class="cf-phase {css_class}" style="padding:0.6rem;">\n'
+            f'  <div class="rb-phase {css_class}" style="padding:0.6rem;">\n'
             f'    <div class="text-xs font-bold">{pid} — {phase.name}</div>\n'
             f'    <div style="font-size:1.4rem;font-weight:700;color:{color};">'
             f"{format_md(eff.authored_total)} MD</div>\n"
@@ -108,7 +108,7 @@ def _render_effort_estimate(
     note_block = ""
     if note_text:
         note_block = f"""
-<div class="cf-note mt-1">
+<div class="rb-note mt-1">
 
 {note_text}
 
@@ -124,7 +124,7 @@ layout: default
 
 # Effort Estimate
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="grid grid-cols-{n_cols} gap-3 mt-2 text-center">
 {cards}</div>
@@ -199,7 +199,7 @@ layout: default
 
 # {phase_id} — Effort Breakdown
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="grid grid-cols-2 gap-8 mt-3">
 
@@ -233,7 +233,7 @@ layout: default
 
 </div>
 
-<div class="cf-summary mt-3">
+<div class="rb-summary mt-3">
 <strong>Total {phase_id}:</strong> <strong>{format_md(effort.authored_total)} MD</strong> effort
 = {format_md(effort.build_total)} MD Build + {format_md(effort.overhead_total)} MD Overhead
 &middot; {format_md(effort.staffed_capacity)} MD staffed capacity

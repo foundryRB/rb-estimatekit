@@ -26,10 +26,10 @@ from .vrom_revenue import (
 # ── Constants ───────────────────────────────────────────────────────────
 
 _PHASE_CSS: dict[str, str] = {
-    "Demo": "cf-phase--demo",
-    "P1": "cf-phase--p1",
-    "P2": "cf-phase--p2",
-    "P3": "cf-phase--p3",
+    "Demo": "rb-phase--demo",
+    "P1": "rb-phase--p1",
+    "P2": "rb-phase--p2",
+    "P3": "rb-phase--p3",
 }
 # Cyclic fallback for unknown / extra phases, indexed by phase position so
 # each gets a distinct accent (mirrors effort.py's index-based cycle).
@@ -105,7 +105,7 @@ def render(
         pct = round(rev / total_revenue * 100) if total_revenue else 0
         color, css = _phase_style(pid, idx, project.config.branding.primary_color)
         cards_html += (
-            f'<div class="cf-card {css}" '
+            f'<div class="rb-card {css}" '
             f'style="border-top:3px solid {color};padding:0.5rem;text-align:center;">\n'
             f'  <div style="font-size:0.65rem;color:#888;">{pid}</div>\n'
             f'  <div style="font-weight:700;font-size:0.75rem;">{phase.name}</div>\n'
@@ -144,7 +144,7 @@ layout: default
 
 # VROM — Cost Summary
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div style="{grid_style}">
 {cards_html}
@@ -163,7 +163,7 @@ layout: default
 
 </div>
 
-<div class="cf-note mt-1">
+<div class="rb-note mt-1">
 
 GM {gm_label} · Source: {source_note}
 

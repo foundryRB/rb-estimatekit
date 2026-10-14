@@ -52,22 +52,22 @@ def build_activity_group_gantt(
     show_detail = not compact
     extra_cols = 3 if show_detail else 1
 
-    tbl_cls = "cf-gantt cf-gantt-compact" if compact else "cf-gantt"
+    tbl_cls = "rb-gantt rb-gantt-compact" if compact else "rb-gantt"
     tbl_style = ' style="line-height:1.0;"' if compact else ""
-    html = f'<div class="cf-gantt-wrap">\n<table class="{tbl_cls}"{tbl_style}>\n<thead>\n'
+    html = f'<div class="rb-gantt-wrap">\n<table class="{tbl_cls}"{tbl_style}>\n<thead>\n'
 
     # Phase group header (all-phases only)
     if is_multi_phase:
         html += phase_header_row(col_phases, extra_cols=extra_cols, primary=primary)
 
     # Column headers
-    html += '<tr class="cf-gantt-header">\n'
-    html += '  <th class="cf-gantt-label">Activity Group</th>\n'
+    html += '<tr class="rb-gantt-header">\n'
+    html += '  <th class="rb-gantt-label">Activity Group</th>\n'
     if show_detail:
-        html += '  <th class="cf-gantt-stream">Stream</th>\n'
-        html += '  <th class="cf-gantt-effort">MD</th>\n'
+        html += '  <th class="rb-gantt-stream">Stream</th>\n'
+        html += '  <th class="rb-gantt-effort">MD</th>\n'
     for lbl in display_labels:
-        html += f'  <th class="cf-gantt-month">{lbl}</th>\n'
+        html += f'  <th class="rb-gantt-month">{lbl}</th>\n'
     html += "</tr>\n</thead>\n<tbody>\n"
 
     # Data rows
@@ -78,10 +78,10 @@ def build_activity_group_gantt(
         )
 
         html += "<tr>\n"
-        html += f'  <td class="cf-gantt-label">{display_label}</td>\n'
+        html += f'  <td class="rb-gantt-label">{display_label}</td>\n'
         if show_detail:
-            html += f'  <td class="cf-gantt-stream">{row.stream}</td>\n'
-            html += f'  <td class="cf-gantt-effort">{format_md(row.effort)}</td>\n'
+            html += f'  <td class="rb-gantt-stream">{row.stream}</td>\n'
+            html += f'  <td class="rb-gantt-effort">{format_md(row.effort)}</td>\n'
 
         for i in range(n_months):
             marker = row.cells[i] if i < len(row.cells) else CellMarker.EMPTY
@@ -92,16 +92,16 @@ def build_activity_group_gantt(
 
             if marker is CellMarker.MILESTONE:
                 html += (
-                    f'  <td class="cf-gantt-cell cf-gantt-milestone" '
+                    f'  <td class="rb-gantt-cell rb-gantt-milestone" '
                     f'style="background:{color};">◆</td>\n'
                 )
             elif marker is CellMarker.ACTIVE:
                 html += (
-                    f'  <td class="cf-gantt-cell cf-gantt-active" '
+                    f'  <td class="rb-gantt-cell rb-gantt-active" '
                     f'style="background:{color};"></td>\n'
                 )
             else:
-                html += '  <td class="cf-gantt-cell"></td>\n'
+                html += '  <td class="rb-gantt-cell"></td>\n'
 
         html += "</tr>\n"
 
@@ -130,25 +130,25 @@ def build_lifecycle_gantt(
     display_labels = [strip_month_prefix(lbl, phase_ids) for lbl in labels]
     is_multi_phase = single_phase is None
 
-    tbl_cls = "cf-gantt cf-gantt-compact" if compact else "cf-gantt"
+    tbl_cls = "rb-gantt rb-gantt-compact" if compact else "rb-gantt"
     tbl_style = ' style="line-height:1.0;"' if compact else ""
-    html = f'<div class="cf-gantt-wrap">\n<table class="{tbl_cls}"{tbl_style}>\n<thead>\n'
+    html = f'<div class="rb-gantt-wrap">\n<table class="{tbl_cls}"{tbl_style}>\n<thead>\n'
 
     # Phase group header (all-phases only)
     if is_multi_phase:
         html += phase_header_row(col_phases, extra_cols=2, primary=primary)
 
-    html += '<tr class="cf-gantt-header">\n'
-    html += '  <th class="cf-gantt-label">Category</th>\n'
-    html += '  <th class="cf-gantt-effort">MD</th>\n'
+    html += '<tr class="rb-gantt-header">\n'
+    html += '  <th class="rb-gantt-label">Category</th>\n'
+    html += '  <th class="rb-gantt-effort">MD</th>\n'
     for lbl in display_labels:
-        html += f'  <th class="cf-gantt-month">{lbl}</th>\n'
+        html += f'  <th class="rb-gantt-month">{lbl}</th>\n'
     html += "</tr>\n</thead>\n<tbody>\n"
 
     for row in view.rows:
         html += "<tr>\n"
-        html += f'  <td class="cf-gantt-label">{row.label}</td>\n'
-        html += f'  <td class="cf-gantt-effort">{format_md(row.effort)}</td>\n'
+        html += f'  <td class="rb-gantt-label">{row.label}</td>\n'
+        html += f'  <td class="rb-gantt-effort">{format_md(row.effort)}</td>\n'
 
         for i in range(n_months):
             marker = row.cells[i] if i < len(row.cells) else CellMarker.EMPTY
@@ -159,31 +159,31 @@ def build_lifecycle_gantt(
 
             if marker is CellMarker.MILESTONE:
                 html += (
-                    f'  <td class="cf-gantt-cell cf-gantt-milestone" '
+                    f'  <td class="rb-gantt-cell rb-gantt-milestone" '
                     f'style="background:{build_color};">◆</td>\n'
                 )
             elif marker is CellMarker.ACTIVE:
                 html += (
-                    f'  <td class="cf-gantt-cell cf-gantt-active" '
+                    f'  <td class="rb-gantt-cell rb-gantt-active" '
                     f'style="background:{build_color};"></td>\n'
                 )
             elif marker is CellMarker.DESIGN:
                 html += (
-                    f'  <td class="cf-gantt-cell cf-gantt-design" '
+                    f'  <td class="rb-gantt-cell rb-gantt-design" '
                     f'style="background:{DESIGN_COLOR};"></td>\n'
                 )
             elif marker is CellMarker.TEST_MILESTONE:
                 html += (
-                    f'  <td class="cf-gantt-cell cf-gantt-test-milestone" '
+                    f'  <td class="rb-gantt-cell rb-gantt-test-milestone" '
                     f'style="background:{TEST_COLOR};">▲</td>\n'
                 )
             elif marker is CellMarker.TEST_ACTIVE:
                 html += (
-                    f'  <td class="cf-gantt-cell cf-gantt-test-active" '
+                    f'  <td class="rb-gantt-cell rb-gantt-test-active" '
                     f'style="background:{TEST_COLOR};"></td>\n'
                 )
             else:
-                html += '  <td class="cf-gantt-cell"></td>\n'
+                html += '  <td class="rb-gantt-cell"></td>\n'
 
         html += "</tr>\n"
 

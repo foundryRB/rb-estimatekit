@@ -84,7 +84,7 @@ layout: default
 
 # Agenda
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 {numbered}
 {foot}{speaker_notes(phase, "agenda")}

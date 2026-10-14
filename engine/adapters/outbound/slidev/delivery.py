@@ -12,10 +12,10 @@ from engine.domain.model.value_objects.phase_roadmap import PhaseRoadmap
 
 # CSS class per phase index — extends naturally for additional phases.
 _CSS_CLASSES = [
-    "cf-phase--demo",
-    "cf-phase--p1",
-    "cf-phase--p2",
-    "cf-phase--p3",
+    "rb-phase--demo",
+    "rb-phase--p1",
+    "rb-phase--p2",
+    "rb-phase--p3",
 ]
 _MAX_BULLETS = 6
 
@@ -49,7 +49,7 @@ def render(
         )
 
         cols += f"""
-<div class="cf-phase {css_class}">
+<div class="rb-phase {css_class}">
 
 ### {phase.phase_name or phase.phase_id} \u2014 {phase.name}
 **{count} reqs** \u00b7 _{phase.integration_type}_
@@ -69,7 +69,7 @@ layout: default
 
 # Phased Delivery Strategy
 
-<div class="cf-divider"></div>
+<div class="rb-divider"></div>
 
 <div class="grid grid-cols-{n_phases} gap-3 mt-3 text-xs">
 {cols}

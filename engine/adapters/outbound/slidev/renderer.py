@@ -61,8 +61,8 @@ def footer(project_name: str, company: str) -> str:
     brand = company.split("\u2014")[0].strip() if "\u2014" in company else company
     suffix = company.split("\u2014")[1].strip() if "\u2014" in company else ""
     return (
-        '\n<div class="cf-footer">\n'
-        f'  <span><span class="cf-brand">{brand}'
+        '\n<div class="rb-footer">\n'
+        f'  <span><span class="rb-brand">{brand}'
         f'</span> \u2014 {suffix}</span>\n'
         f"  <span>{project_name}</span>\n"
         "</div>"
