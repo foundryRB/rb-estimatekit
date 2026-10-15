@@ -1,0 +1,9 @@
+apiVersion: v2
+name: estimatekit
+description: prod environment pin for estimatekit (ADR-025 deploy branch).
+type: application
+version: 1.0.0
+dependencies:
+  - name: estimatekit
+    version: 1.0.0
+    repository: oci://ghcr.io/foundryrb/charts
