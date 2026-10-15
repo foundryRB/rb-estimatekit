@@ -1,0 +1,23 @@
+# Advisories this repo accepts in the shared build's dependency audit: each has no
+# fix the repo can take, and does not affect it. The schema sits beside the audit
+# in the shared ci repo (accepted-advisories.schema.json).
+
+- vulnerability: GHSA-vfj7-8cjw-p6xm
+  justification: vulnerable_code_cannot_be_controlled_by_adversary
+  impact_statement: >-
+    braces reaches the pinned Slidev toolchain (slidev/package-lock.json) only through
+    micromatch and chokidar, which the Vite build uses to match its own file globs
+    while `slidev build` renders a deck to static HTML. The patterns come from the
+    toolchain's configuration, never from a request or from deck content, so no caller
+    can hand it the deeply nested pattern the advisory needs. The advisory lists no
+    patched release; drop this entry once one exists and the lockfile takes it.
+
+- vulnerability: GHSA-68fv-2mgg-jv7q
+  justification: vulnerable_code_cannot_be_controlled_by_adversary
+  impact_statement: >-
+    source-map-js is used by Vite's PostCSS and Vue compiler steps inside the pinned
+    Slidev toolchain (slidev/package-lock.json) to read source maps it produced itself
+    while `slidev build` renders a deck to static HTML. The advisory needs a source map
+    whose section offsets an attacker has crafted, and this build reads none that a
+    caller supplies. Drop this entry once a patched release (1.2.2 or later) is in the
+    lockfile.
