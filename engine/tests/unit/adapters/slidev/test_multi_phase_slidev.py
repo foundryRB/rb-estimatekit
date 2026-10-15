@@ -32,7 +32,8 @@ class TestPhaseStyle:
     """vrom colour/class assignment for extra phases."""
 
     def test_known_phases_keep_their_mapped_colour(self) -> None:
-        assert _phase_style("P1", 1)[0] == "#00a86b"
+        # A hex colour is case-insensitive; the brand constant is stored upper-case.
+        assert _phase_style("P1", 1)[0].lower() == "#00a86b"
 
     def test_p1_carries_the_brand_primary_everywhere(self) -> None:
         # project.yaml's primary_color is the accent of P1 on every slide (effort, VROM,

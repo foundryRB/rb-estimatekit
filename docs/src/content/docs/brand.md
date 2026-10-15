@@ -25,6 +25,6 @@ EstimateKit's application wears the RB Software Engineering identity; a new proj
 
 The application uses a near-black stage in dark and paper in light, the brand's green as the primary and the field's colour, and system fonts for text. Continuous side fields and sparse rising particles animate in both appearances, pause on hidden pages and stop for reduced motion. The editing workspace uses opaque working surfaces. Mobile layouts retain access to the project gallery.
 
-New projects use RB, its red (`#00a86b`) and Segoe UI. Output adapters consume the project's branding for its proposal, roadmap and presentation; an explicitly branded customer project retains its own values. Generated data, calculations and estimation semantics belong to the existing engine.
+New projects use RB, its green (`#00a86b`) and Segoe UI. Output adapters consume the project's branding for its proposal, roadmap and presentation; an explicitly branded customer project retains its own values. Generated data, calculations and estimation semantics belong to the existing engine.
 
 Proposals use Light reading surfaces with dark table headers, accessible accent text, edge contours and sparse embers. Motion pauses on hidden pages, stops for reduced motion and is absent from print. Generated workbooks use the shared reading palette and Segoe UI. Semantic risk/category colours remain tied to data. Issued files retain their appearance until regenerated.
