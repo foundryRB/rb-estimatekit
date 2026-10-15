@@ -1,8 +1,7 @@
 # estimatekit tests: run the engine pytest suite and the docs Starlight meta-tests on
 # every push to main and on PRs. Separate from build.yml (conformance + release):
-# tests gate the code, the build ships artifacts. Runs on the in-cluster ARC runners
-# (arc-dind scale set), so CI does not depend on GitHub-hosted billing; this requires
-# the install's cluster to be up for the run to be picked up.
+# tests gate the code, the build ships artifacts. Runs on GitHub-hosted runners
+# (this install runs no in-cluster ARC runners).
 name: test
 
 on:
@@ -12,7 +11,7 @@ on:
 
 jobs:
   engine:
-    runs-on: arc-dind
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,7 +23,7 @@ jobs:
       - run: python -m pytest engine/tests -q
 
   docs:
-    runs-on: arc-dind
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
